@@ -136,34 +136,27 @@ function cot_apply_rwr()
 			$ext = (isset(cot::$structure['page'][$filtered])) ? 'page' : $filtered;
 			$_GET['e'] = $ext;
 			$cat_chain = array_slice($path, 0, -1);
-			if (isset(cot::$structure[$ext][$path[$last]]) && !in_array($path[$last], $cat_chain))
-			{
+			if (isset(cot::$structure[$ext][$path[$last]]) && !in_array($path[$last], $cat_chain)) {
 				// Is a category
 				$_GET['c'] = $path[$last];
 				if ($rwr !== cot_url($ext, array('c' => $_GET['c']))) {
 					cot_url_usertheme_files();
 					cot_die_message(404, true);
 				}
-			}
-			else
-			{
+			} else {
 				// Is a page/item
-				if ($ext == 'page' || $count > 2)
-				{
+				if ($ext == 'page' || $count > 2) {
 					$_GET['c'] = $path[$last - 1];
 				}
-				if (is_numeric($path[$last]))
-				{
+				if (is_numeric($path[$last])) {
 					$_GET['id'] = $path[$last];
-				}
-				else
-				{
+				} else {
 					// Can be a cat or al, let the module decide
-					if ($count == 2 && !isset(cot::$structure[$ext][$_GET['c']]))
-						$_GET['c'] = $path[$last];
+					if ($count == 2 && (!isset($_GET['c']) || !isset(cot::$structure[$ext][$_GET['c']])))  $_GET['c'] = $path[$last];
+
 					$_GET['al'] = $path[$last];
 				}
-				if (!empty($_GET['id'] || $_GET['al']) && $_GET['c']) {
+                if ((!empty($_GET['id']) || !empty($_GET['al'])) && !empty($_GET['c'])) {
 					if ($rwr !== cot_url($ext, array('c' => $_GET['c'], !empty($_GET['al']) ? 'al' : 'id' => $path[$last]))) {
 						cot_url_usertheme_files();
 						cot_die_message(404, true);
@@ -283,28 +276,22 @@ function cot_url_custom($name, $params = '', $tail = '', $htmlspecialchars_bypas
 	}
 
 	// Support for i18n parameter
-	if (cot_plugin_active('i18n'))
-	{
+	if (cot_plugin_active('i18n')) {
 		$i18n_cfg = cot::$cfg['plugin']['i18n'];
 		$i18n_rewrite = isset($i18n_cfg['rewrite']) && $i18n_cfg['rewrite'];
-		$omit_param = $i18n_cfg['omitmain'] && $params['l'] == cot::$usr['profile']['user_lang'];
-		if (isset($params['l']) && $i18n_rewrite && !$omit_param)
-		{
+		$omit_param = $i18n_cfg['omitmain'] && isset($params['l']) && isset(cot::$usr['profile']) && $params['l'] == cot::$usr['profile']['user_lang'];
+		if (isset($params['l']) && $i18n_rewrite && !$omit_param) {
 			// Add with slash at the beginning of the URL
 			$pos = strpos($url, cot::$sys['site_uri']);
-			if (cot::$sys['site_uri'] != '/' && $pos !== false)
-			{
-				$url = substr_replace($url, cot::$sys['site_uri'] . rawurlencode($params['l']) . '/', $pos, mb_strlen($sys['site_uri']));
-			}
-			else
-			{
+			if (cot::$sys['site_uri'] != '/' && $pos !== false) {
+				$url = substr_replace($url, cot::$sys['site_uri'] . rawurlencode($params['l']) . '/', $pos, mb_strlen(cot::$sys['site_uri']));
+
+            } else {
 				$p = mb_strpos($url, '://');
-				if ($p === false)
-				{
+				if ($p === false) {
 					$url = mb_strpos($url, '/') === 0 ? '/' . rawurlencode($params['l']) . $url : rawurlencode($params['l']) . '/' . $url;
-				}
-				else
-				{
+
+                } else {
 					$p = mb_strpos($url, '/', $p + 3);
 					$url = $p === false ? $url . '/' . rawurlencode($params['l']) : mb_substr($url, 0, $p) . rawurlencode($params['l']) . '/' .
 						 mb_substr($url, $p + 1);
