@@ -137,6 +137,7 @@ function cot_comments_display($ext_name, $code, $cat = '', $force_admin = false)
 	}
 	/* ===== */
     $editor = (cot::$cfg['plugin']['comments']['markup']) ? 'input_textarea_minieditor' : '';
+    $rtext = isset($rtext) ? $rtext : '';   // Todo obsolete?
 	$t->assign(array(
 		'COMMENTS_CODE' => $code,
 		'COMMENTS_FORM_SEND' => cot_url('plug', "e=comments&a=send&area=$ext_name&cat=$cat&item=$code"),
@@ -153,7 +154,8 @@ function cot_comments_display($ext_name, $code, $cat = '', $force_admin = false)
 		if(!empty(cot::$extrafields[cot::$db->com])) {
 			foreach (cot::$extrafields[cot::$db->com] as $exfld) {
 				$uname = strtoupper($exfld['field_name']);
-				$exfld_val = cot_build_extrafields('rcomments' . $exfld['field_name'], $exfld, $rcomments[$exfld['field_name']]);
+				$val = isset($rcomments[$exfld['field_name']]) ? $rcomments[$exfld['field_name']] : null; // Todo obsolete?
+				$exfld_val = cot_build_extrafields('rcomments' . $exfld['field_name'], $exfld, $val);
                 $exfld_title = cot_extrafield_title($exfld, 'comments_');
 
 				$t->assign(array(
@@ -295,8 +297,9 @@ function cot_comments_display($ext_name, $code, $cat = '', $force_admin = false)
 		}
 
 		$pagenav = cot_pagenav($link_area, $link_params, $d, $totalitems,
-			$cfg['plugin']['comments']['maxcommentsperpage'], $d_var, '#comments',
-			$cfg['jquery'] && $cfg['ajax_enabled'], 'comments', 'plug', "e=comments&area=$ext_name&cat=$cat&item=$code");
+			cot::$cfg['plugin']['comments']['maxcommentsperpage'], $d_var, '#comments',
+            cot::$cfg['jquery'] && cot::$cfg['turnajax'], 'comments', 'plug',
+                               "e=comments&area=$ext_name&cat=$cat&item=$code");
 		$t->assign(array(
 			'COMMENTS_PAGES_INFO' => cot_rc('comments_code_pages_info', array(
 					'totalitems' => $totalitems,
@@ -309,9 +312,7 @@ function cot_comments_display($ext_name, $code, $cat = '', $force_admin = false)
 		));
 		$t->parse('COMMENTS.PAGNAVIGATOR');
 
-	}
-	elseif (!$sql->rowCount() && $enabled)
-	{
+	} elseif (!$sql->rowCount() && $enabled) {
 		$t->assign(array(
 			'COMMENTS_EMPTYTEXT' => $L['com_nocommentsyet'],
 		));
