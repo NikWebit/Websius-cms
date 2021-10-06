@@ -157,7 +157,20 @@ function cot_generate_pagetags($page_data, $tag_prefix = '', $textlength = 0, $a
 			$page_data['page_expire']
 		);
 
-		$temp_array = array(
+        $haveFile = $L['No'];
+        $page_data['page_file'] = (int)$page_data['page_file'];
+        if($page_data['page_file'] == 1) {
+            $haveFile = cot::$L['Yes'];
+        } elseif ($page_data['page_file'] == 2) {
+            $haveFile = cot::$L['Members_download'];
+        }
+
+        $catTitle = '';
+        if (isset($structure['page'][$page_data['page_cat']]['title'])) {
+            $catTitle = htmlspecialchars($structure['page'][$page_data['page_cat']]['title']);
+        }
+
+        $temp_array = array(
 			'URL' => $page_data['page_pageurl'],
 			'ID' => $page_data['page_id'],
 			'TITLE' => $page_data['page_fulltitle'],
@@ -168,22 +181,22 @@ function cot_generate_pagetags($page_data, $tag_prefix = '', $textlength = 0, $a
 			'SHORTTITLE' => htmlspecialchars($page_data['page_title'], ENT_COMPAT, 'UTF-8', false),
 			'CAT' => $page_data['page_cat'],
 			'CATURL' => $cat_url,
-			'CATTITLE' => htmlspecialchars($structure['page'][$page_data['page_cat']]['title']),
+			'CATTITLE' => $catTitle,
 			'CATPATH' => $catpath,
-			'CATPATH_SHORT' => cot_rc_link($cat_url, htmlspecialchars($structure['page'][$page_data['page_cat']]['title'])),
-			'CATDESC' => htmlspecialchars($structure['page'][$page_data['page_cat']]['desc']),
-			'CATICON' => $structure['page'][$page_data['page_cat']]['icon'],
+			'CATPATH_SHORT' => cot_rc_link($cat_url, $catTitle),
+			'CATDESC' => isset($structure['page'][$page_data['page_cat']]['desc']) ? htmlspecialchars($structure['page'][$page_data['page_cat']]['desc']) : '',
+			'CATICON' => isset($structure['page'][$page_data['page_cat']]['icon']) ? $structure['page'][$page_data['page_cat']]['icon'] : '',
 			'KEYWORDS' => htmlspecialchars($page_data['page_keywords']),
 			'DESC' => htmlspecialchars($page_data['page_desc']),
 			'TEXT' => $text,
 			'TEXT_CUT' => $text_cut,
 			'TEXT_IS_CUT' => $cutted,
-			'DESC_OR_TEXT' => (!empty($page_data['page_desc'])) ? htmlspecialchars($page_data['page_desc']) : $text,
-			'DESC_OR_TEXT_CUT' => (!empty($page_data['page_desc'])) ? htmlspecialchars($page_data['page_desc']) : $text_cut,
+			'DESC_OR_TEXT' => isset($page_data['page_desc']) ? htmlspecialchars($page_data['page_desc']) : $text,
+			'DESC_OR_TEXT_CUT' => isset($page_data['page_desc']) ? htmlspecialchars($page_data['page_desc']) : $text_cut,
 			'MORE' => ($cutted) ? cot_rc('list_more', array('page_url' => $page_data['page_pageurl'])) : '',
 			'AUTHOR' => htmlspecialchars($page_data['page_author']),
 			'OWNERID' => $page_data['page_ownerid'],
-			'OWNERNAME' => htmlspecialchars($page_data['user_name']),
+			'OWNERNAME' => isset($page_data['user_name']) ? htmlspecialchars($page_data['user_name']) : '',
 			'DATE' => cot_date($date_format, $page_data['page_date']),
 			'BEGIN' => cot_date($date_format, $page_data['page_begin']),
 			'EXPIRE' => cot_date($date_format, $page_data['page_expire']),
@@ -192,7 +205,7 @@ function cot_generate_pagetags($page_data, $tag_prefix = '', $textlength = 0, $a
 			'BEGIN_STAMP' => $page_data['page_begin'],
 			'EXPIRE_STAMP' => $page_data['page_expire'],
 			'UPDATED_STAMP' => $page_data['page_updated'],
-			'FILE' => $cot_yesno[$page_data['page_file']],
+			'FILE' => $haveFile,
 			'FILE_URL' => empty($page_data['page_url']) ? '' : cot_url('page', 'c='.$page_data['page_cat'].'&id='.$page_data['page_id'].'&a=dl'),
 			'FILE_SIZE' => $page_data['page_size'] / 1024, // in KiB; deprecated but kept for compatibility
 			'FILE_SIZE_BYTES' => $page_data['page_size'],
@@ -242,9 +255,12 @@ function cot_generate_pagetags($page_data, $tag_prefix = '', $textlength = 0, $a
                 $exfld_title = cot_extrafield_title($exfld, 'page_');
 
 				$temp_array[$tag.'_TITLE'] = $exfld_title;
-				$temp_array[$tag] = cot_build_extrafields_data('page', $exfld, $page_data['page_'.$exfld['field_name']], 
-                    $page_data['page_parser']);
-				$temp_array[$tag.'_VALUE'] = $page_data['page_'.$exfld['field_name']];
+                $temp_value = null;
+                if (isset($page_data['page_'.$exfld['field_name']])) {
+                    $temp_value = $page_data['page_'.$exfld['field_name']];
+                }
+				$temp_array[$tag] = cot_build_extrafields_data('page', $exfld, $temp_value, $page_data['page_parser']);
+				$temp_array[$tag.'_VALUE'] = $temp_value;
 			}
 		}
 
@@ -255,9 +271,12 @@ function cot_generate_pagetags($page_data, $tag_prefix = '', $textlength = 0, $a
                 $exfld_title = cot_extrafield_title($exfld, 'structure_');
 
 				$temp_array['CAT_'.$tag.'_TITLE'] = $exfld_title;
-				$temp_array['CAT_'.$tag] = cot_build_extrafields_data('structure', $exfld,
-                    cot::$structure['page'][$page_data['page_cat']][$exfld['field_name']]);
-				$temp_array['CAT_'.$tag.'_VALUE'] = cot::$structure['page'][$page_data['page_cat']][$exfld['field_name']];
+                $temp_value = null;
+                if (isset(cot::$structure['page'][$page_data['page_cat']][$exfld['field_name']])) {
+                    $temp_value = cot::$structure['page'][$page_data['page_cat']][$exfld['field_name']];
+                }
+				$temp_array['CAT_'.$tag] = cot_build_extrafields_data('structure', $exfld, $temp_value);
+				$temp_array['CAT_'.$tag.'_VALUE'] = $temp_value;
 			}
 		}
 
@@ -934,8 +953,7 @@ function cot_page_enum($categories = '', $count = 0, $template = '', $order = ''
         'total' => 1,
     );
 
-	if(!empty($pagination))
-	{
+	if(!empty($pagination)) {
 		$pagenav = cot_pagenav($url_area, $url_params, $d, $totalitems, $count, $pagination);
 	}
 
@@ -943,7 +961,7 @@ function cot_page_enum($categories = '', $count = 0, $template = '', $order = ''
 		'PAGE_TOP_PAGINATION' => $pagenav['main'],
 		'PAGE_TOP_PAGEPREV' => $pagenav['prev'],
 		'PAGE_TOP_PAGENEXT' => $pagenav['next'],
-		'PAGE_TOP_FIRST' => $pagenav['first'],
+		'PAGE_TOP_FIRST' => isset($pagenav['first']) ? $pagenav['first'] : '',
 		'PAGE_TOP_LAST' => $pagenav['last'],
 		'PAGE_TOP_CURRENTPAGE' => $pagenav['current'],
 		'PAGE_TOP_TOTALLINES' => $totalitems,
