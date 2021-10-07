@@ -1,17 +1,15 @@
-Требования
-----------
+## Требования
 
-To install Cotonti you need the following server software pre-installed:
+Для установки Cotonti необходимо предварительно установить следующее серверное программное обеспечение: 
 
-* Веб сервер (Apache, nginx, etc)
-* PHP 8 +
+* Веб Сервер (Apache, Nginx)
+* PHP 8.0.0 +
 * MySQL 5.0.7 +
 
 
-Конфигурация сервера
---------------------
+## Конфигурация сервера
 
-You MUST ensure that PHP has been compiled with support for:
+Убедитесь, что PHP был скомпилирован с поддержкой: 
 * GD
 * Hash
 * Mbstring
@@ -20,18 +18,16 @@ You MUST ensure that PHP has been compiled with support for:
 * PDO and PDO_MySQL
 * Sessions
 * Zlib
-in order to successfully run Cotonti.
+для успешного запуска Cotonti. 
 
 
-Опциональные компоненты
------------------------
+## Опциональные компоненты
 
 Если вам нужна поддержка перенаправлений URL-адресов SEF (Search Engine Friendly), ЧПУ,
-понадобится `mod_rewrite` и возможность использовать локальные файлы` .htaccess`.
+понадобится `mod_rewrite` и возможность использовать локальные файлы` .htaccess`. 
 
 
-Установка
----------
+## Установка
 
 1. Скопируйте datas/config-sample.php в datas/config.php и установите права на запись
  CHMOD 666 или CHMOD 664 (зависит от конфигурации вашего хостинга).
@@ -53,8 +49,7 @@ in order to successfully run Cotonti.
 4. Следуйте инструкциям на экране до конца установки.
 
 
-ЧПУ и перенаправления
----------------------
+## ЧПУ и перенаправления
 
 Если планируете использовать SEF URLs, ЧПУ:
 
@@ -62,5 +57,4 @@ in order to successfully run Cotonti.
 * Включите пресет "Handy" в Управление сайтом / Расширения / URL Editor / Конфигурация
 * Добавьте правила в .htaccess файл (если используете Apache веб сервер) из файла /sef-urls.htaccess
 * Если используете Nginx веб сервер, создайте в корне файл nginx.conf, скопируйте в него правила из /sef-urls.nginx.conf
-
 
