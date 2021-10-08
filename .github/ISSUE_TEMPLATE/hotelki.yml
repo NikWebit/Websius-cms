@@ -1,0 +1,28 @@
+name: 👍 Хотелки
+description: Просьба о добавлении возможности / Идея
+title: "[Что-то]:"
+labels: ["хотелки"]
+assignees:
+- NikWebit
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Спасибо, что нашли время что-то предложить!
+  - type: textarea
+    id: what-is-it
+    attributes:
+      label: Опишите суть просьбы
+      description:  Чёткое подробное описание просьбы / идеи.
+      placeholder: Что предлагаете?
+      value: "Есть идея"
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Дополнительная информация
+      description: Если есть дополнительная информация, опишите.
+    validations:
+      required: false
+      render: shell
