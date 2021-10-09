@@ -1033,7 +1033,7 @@ function cot_sendheaders($content_type = 'text/html', $response_code = '200 OK',
  * @param bool $httponly HttpOnly flag
  * @return bool
  */
-function cot_setcookie($name, $value, $expire = '', $path = '', $domain = '', $secure = false, $httponly = true) {
+function cot_setcookie($name, $value, $expire = '', $path = '', $domain = '', $secure = false, $httponly = true, $samesite = '') {
     global $cfg;
 
     if (mb_strpos($domain, '.') === FALSE) {
@@ -1057,7 +1057,21 @@ function cot_setcookie($name, $value, $expire = '', $path = '', $domain = '', $s
         $domain = false;
     }
 
-    return setcookie($name, $value, $expire, $path, $domain, $secure, $httponly);
+    // Cookie SameSite options verify
+    $samesite_opts = ['Lax', 'Strict', 'None'];
+    if (!in_array($samesite, $samesite_opts, true)) {
+        $samesite = in_array($cfg['cookie_samesite'], $samesite_opts, true) ?
+                $cfg['cookie_samesite'] : 'Lax';
+    }
+
+    return setcookie($name, $value, [
+        'expires' => $expire,
+        'path' => $path,
+        'domain' => $domain,
+        'secure' => $secure,
+        'httponly' => $httponly,
+        'samesite' => $samesite
+    ]);
 }
 
 /**

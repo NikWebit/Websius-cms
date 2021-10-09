@@ -46,14 +46,7 @@ $sys['site_id'] = $site_id;
 
 // Getting the server-relative path
 $url = parse_url($cfg['mainurl']);
-
-$sys['scheme'] = 'http';
-if (strpos($_SERVER['SERVER_PROTOCOL'], 'HTTPS') !== false ||
-        (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') ||
-        (!empty($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] == 443) ||
-        (!empty($_SERVER['HTTP_X_FORWARDED_PORT']) && $_SERVER['HTTP_X_FORWARDED_PORT'] == 443)) {
-    $sys['scheme'] = 'https';
-}
+$sys['scheme'] = strpos($_SERVER['SERVER_PROTOCOL'], 'HTTPS') === false && $_SERVER['HTTPS'] != 'on' && $_SERVER['SERVER_PORT'] != $cfg['ssl_port'] && $_SERVER['HTTP_X_FORWARDED_PORT'] !== $cfg['ssl_port'] ? 'http' : 'https';
 $sys['secure'] = $sys['scheme'] == 'https' ? true : false;
 
 $sys['domain'] = preg_replace('#^www\.#', '', $url['host']);
@@ -84,7 +77,19 @@ define('COT_ABSOLUTE_URL', $sys['abs_url']);
 if ($cfg['multihost']) {
     $cfg['mainurl'] = mb_substr($sys['abs_url'], 0, -1);
 }
-session_set_cookie_params(0, $sys['site_uri'], '.' . $sys['domain']);
+
+// Session Cookie SameSite
+$cfg['session_cookie_samesite'] = in_array($cfg['session_cookie_samesite'], ['Lax', 'Strict']) ?
+        $cfg['session_cookie_samesite'] : 'None';
+
+session_set_cookie_params([
+    'lifetime' => 0,
+    'path' => $sys['site_uri'],
+    'domain' => '.' . $sys['domain'],
+    'secure' => $sys['secure'],
+    'httponly' => false,
+    'samesite' => $cfg['session_cookie_samesite']
+]);
 
 session_start();
 
@@ -125,8 +130,10 @@ cot::init();
 $cache && $cache->init();
 
 /* ======== Configuration settings ======== */
-if (!isset($cot_cfg))
+if (!isset($cot_cfg)) {
     $cot_cfg = null;
+}
+
 if ($cache && $cot_cfg) {
     $cfg = array_merge($cot_cfg, $cfg);
 } else {
