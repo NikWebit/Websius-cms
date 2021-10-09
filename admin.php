@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Administration panel loader
  *
@@ -6,7 +7,6 @@
  * @copyright (c) Cotonti Team
  * @license https://github.com/Cotonti/Cotonti/blob/master/License.txt
  */
-
 define('COT_CODE', TRUE);
 define('COT_ADMIN', TRUE);
 define('COT_CORE', TRUE);
