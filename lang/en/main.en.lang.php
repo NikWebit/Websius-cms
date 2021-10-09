@@ -1,4 +1,5 @@
 <?php
+
 /**
  * English Language File (main.lang.php)
  *
@@ -6,13 +7,11 @@
  * @copyright (c) Cotonti Team
  * @license https://github.com/Cotonti/Cotonti/blob/master/License.txt
  */
-
 defined('COT_CODE') or die('Wrong URL.');
 
 /**
  * Main strings
  */
-
 $L['Access'] = 'Access';
 $L['Action'] = 'Action';
 $L['Active'] = 'Active';
@@ -144,10 +143,10 @@ $L['Lastlogged'] = 'Last logged';
 $L['Lastpost'] = 'Last post';
 $L['Left'] = 'Left';
 $L['LessThan'] = 'Less than';
-$L['Level']	= 'Level';
+$L['Level'] = 'Level';
 $L['Levels'] = 'Levels';
-$L['Link']	= 'Link';
-$L['Links']	= 'Links';
+$L['Link'] = 'Link';
+$L['Links'] = 'Links';
 $L['Locale'] = 'Locale';
 $L['Location'] = 'Location';
 $L['Lock'] = 'Lock';
@@ -377,7 +376,6 @@ $Ls['Tebibytes'] = "TiB";
 /**
  * Date / Time formats
  */
-
 $Ldt['date_full'] = 'Y-m-d';
 $Ldt['date_medium'] = 'Y-m';
 $Ldt['date_short'] = 'm-d';
@@ -402,7 +400,6 @@ $Ldt['week_fulltext'] = 'o-\WW, l';
 /**
  * Days of the week
  */
-
 $L['Monday'] = 'Monday';
 $L['Tuesday'] = 'Tuesday';
 $L['Wednesday'] = 'Wednesday';
@@ -421,7 +418,6 @@ $L['Sunday_s'] = 'Sun';
 /**
  * Months
  */
-
 $L['January'] = 'January';
 $L['February'] = 'February';
 $L['March'] = 'March';
@@ -450,14 +446,12 @@ $L['December_s'] = 'Dec';
 /**
  * Number formatting
  */
-
 $Ln['decimal_point'] = '.';
 $Ln['thousands_separator'] = ',';
 
 /**
  * Gender
  */
-
 $L['Gender_F'] = 'Female';
 $L['Gender_M'] = 'Male';
 $L['Gender_U'] = 'Unknown';
@@ -465,7 +459,6 @@ $L['Gender_U'] = 'Unknown';
 /**
  * Common Entries
  */
-
 $L['com_themefail'] = 'Warning, failed to load your prefered theme, check your profile';
 $L['com_schemefail'] = 'Warning, failed to load your prefered color scheme for the prefered theme, please check your profile and update values';
 $L['com_defthemefail'] = 'Error, default theme not found, check your theme folder';
@@ -473,7 +466,6 @@ $L['com_defthemefail'] = 'Error, default theme not found, check your theme folde
 /**
  * Header
  */
-
 $L['hea_noprivatemessages'] = 'No private messages';
 $L['hea_valqueues'] = 'In validation queues: ';
 $L['hea_viewsite'] = 'View Website';
@@ -484,7 +476,6 @@ $L['hea_youarenotlogged'] = 'You\'re not logged in';
 /**
  * Footer
  */
-
 $L['foo_poweredby'] = 'Powered by';
 $L['foo_created'] = 'Page created in';
 $L['foo_sqlqueries'] = 'SQL queries';
@@ -494,7 +485,7 @@ $L['foo_sqlaverage'] = 'Average SQL time';
 /**
  * Extra fields
  */
-$L['field_extension']  = 'Wrong file extension';
+$L['field_extension'] = 'Wrong file extension';
 $L['field_notinarray'] = 'Field value is not true';
 $L['field_pregmatch'] = 'Field value is not true';
 $L['field_range'] = 'Field value is not true';
@@ -503,7 +494,6 @@ $L['field_required'] = 'Field must be filled';
 /**
  * Miscellaneous
  */
-
 $L['pagenav_first'] = '&lt;&lt;';
 $L['pagenav_prev'] = '&lt;';
 $L['pagenav_next'] = '&gt;';

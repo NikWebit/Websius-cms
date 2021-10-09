@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Russian Language File (main.lang.php)
  *
@@ -6,13 +7,11 @@
  * @copyright (c) Cotonti Team
  * @license https://github.com/Cotonti/Cotonti/blob/master/License.txt
  */
-
 defined('COT_CODE') or die('Wrong URL.');
 
 /**
  * Main strings
  */
-
 $L['Access'] = 'Доступ';
 $L['Action'] = 'Действие';
 $L['Active'] = 'Активно';
@@ -377,7 +376,6 @@ $Ls['Tebibytes'] = "TiB";
 /**
  * Date / Time formats
  */
-
 $Ldt['date_full'] = 'd.m.Y';
 $Ldt['date_medium'] = 'm.Y';
 $Ldt['date_short'] = 'd.m';
@@ -402,7 +400,6 @@ $Ldt['week_fulltext'] = 'o-\WW, l';
 /**
  * Days of the week
  */
-
 $L['Monday'] = 'Понедельник';
 $L['Tuesday'] = 'Вторник';
 $L['Wednesday'] = 'Среда';
@@ -421,7 +418,6 @@ $L['Sunday_s'] = 'вс';
 /**
  * Months
  */
-
 $L['January'] = 'января';
 $L['February'] = 'февраля';
 $L['March'] = 'марта';
@@ -450,14 +446,12 @@ $L['December_s'] = 'дек';
 /**
  * Number formatting
  */
-
 $Ln['decimal_point'] = ',';
 $Ln['thousands_separator'] = ' ';
 
 /**
  * Gender
  */
-
 $L['Gender_F'] = 'Женский';
 $L['Gender_M'] = 'Мужской';
 $L['Gender_U'] = 'Не указан';
@@ -465,7 +459,6 @@ $L['Gender_U'] = 'Не указан';
 /**
  * Common Entries
  */
-
 $L['com_themefail'] = 'Ошибка загрузки выбранной темы: обновите или измените личные настройки';
 $L['com_schemefail'] = 'Ошибка загрузки цветовой схемы выбранной темы: обновите или измените личные настройки';
 $L['com_defthemefail'] = 'Ошибка, не найдена стандартная тема оформления, проверьте файлы в каталоге с темами';
@@ -473,7 +466,6 @@ $L['com_defthemefail'] = 'Ошибка, не найдена стандартна
 /**
  * Header
  */
-
 $L['hea_noprivatemessages'] = 'Личных сообщений нет';
 $L['hea_viewsite'] = 'Просмотр сайта';
 $L['hea_valqueues'] = 'В очереди на утверждение: '; // Discuss
@@ -484,7 +476,6 @@ $L['hea_youarenotlogged'] = 'Вы не авторизованы';
 /**
  * Footer
  */
-
 $L['foo_poweredby'] = 'Powered by';
 $L['foo_created'] = 'Страница создана за';
 $L['foo_sqlqueries'] = 'SQL запросов';
@@ -494,16 +485,15 @@ $L['foo_sqlaverage'] = 'Среднее время SQL';
 /**
  * Extra fields
  */
-$L['field_extension']  = 'Неразрешенное расширение файла';
+$L['field_extension'] = 'Неразрешенное расширение файла';
 $L['field_notinarray'] = 'Значение поля не верно';
-$L['field_pregmatch']  = 'Значение поля не верно';
+$L['field_pregmatch'] = 'Значение поля не верно';
 $L['field_range'] = 'Значение поля не верно';
 $L['field_required'] = 'Поле должно быть заполнено';
 
 /**
  * Miscellaneous
  */
-
 $L['pagenav_first'] = '&lt;&lt;';
 $L['pagenav_prev'] = '&lt;';
 $L['pagenav_next'] = '&gt;';

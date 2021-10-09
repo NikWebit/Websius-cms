@@ -7,7 +7,6 @@
  * @copyright (c) Cotonti Team
  * @license https://github.com/Cotonti/Cotonti/blob/master/License.txt
  */
-
 defined('COT_CODE') or die('Wrong URL.');
 
 /**
@@ -299,7 +298,7 @@ $L['ext_config_installed'] = 'Конфигурация установлена';
 $L['ext_config_uninstalled'] = 'Конфигурация удалена';
 $L['ext_config_updated'] = 'Опции конфигурации обновлены';
 $L['ext_config_struct_error'] = 'Ошибка настройки конфигурации структуры';
-$L['ext_config_struct_installed'] ='Конфигурация структуры установлена';
+$L['ext_config_struct_installed'] = 'Конфигурация структуры установлена';
 $L['ext_config_struct_updated'] = 'Опции конфигурации структуры обновлены';
 $L['ext_dependency_error'] = '{$dep_type} &quot;{$dep_name}&quot;, необходимый для {$type} &quot;{$name}&quot;, не установлен и не выбран для установки';
 $L['ext_dependency_uninstall_error'] = '{$type} &quot;{$name}&quot; использует данное расширение и должен быть удален в первую очередь';
@@ -384,8 +383,8 @@ $L['adm_help_newtags'] = '<br /><br /><b>Новые тэги в tpl-файлах
  * Users Section
  */
 $L['adm_rightspergroup'] = 'Права групп';
-$L['adm_maxsizesingle'] = 'Максимальный размер одного файла в разделе &laquo;'.$L['PFS'].'&raquo; (KiB)';
-$L['adm_maxsizeallpfs'] = 'Максимальный размер всех файлов в разделе &laquo;'.$L['PFS'].'&raquo; (KiB)';
+$L['adm_maxsizesingle'] = 'Максимальный размер одного файла в разделе &laquo;' . $L['PFS'] . '&raquo; (KiB)';
+$L['adm_maxsizeallpfs'] = 'Максимальный размер всех файлов в разделе &laquo;' . $L['PFS'] . '&raquo; (KiB)';
 $L['adm_copyrightsfrom'] = 'Установить права как в группе';
 $L['adm_rights_maintenance'] = 'Разрешить авторизацию при включенном режиме обслуживания';
 $L['adm_skiprights'] = 'Пропустить права для этой группы';
@@ -574,4 +573,4 @@ $L['adm_help_extrafield'] = 'HTML-код поля устанавливается
 $L['adm_help_cache'] = 'Недоступно';
 $L['adm_help_check1'] = 'Недоступно';
 $L['adm_help_check2'] = 'Недоступно';
-$L['adm_help_config']= 'Недоступно';
+$L['adm_help_config'] = 'Недоступно';

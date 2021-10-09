@@ -1,4 +1,5 @@
 <?php
+
 /**
  * English Language File for the Message Module (message.en.lang.php)
  *
@@ -6,7 +7,6 @@
  * @copyright (c) Cotonti Team
  * @license https://github.com/Cotonti/Cotonti/blob/master/License.txt
  */
-
 defined('COT_CODE') or die('Wrong URL.');
 
 $L['msg_Message'] = 'Message';
@@ -20,7 +20,6 @@ $L['msgredir'] = 'Redirecting...';
 /**
  * Account-Related Messages
  */
-
 $L['msg100_title'] = 'User not logged, access to profile denied';
 $L['msg100_body'] = 'Only registered and logged users can display their profile!';
 
@@ -63,14 +62,12 @@ $L['msg157_body'] = 'This validation URL isn\'t valid.';
 /**
  * Redirection Messages
  */
-
 $L['msg300_title'] = 'New submission';
 $L['msg300_body'] = 'Ok, this item is now recorded in the database.<br />A moderator will check it as soon as possible.<br />Thanks!';
 
 /**
  * Client Error Messages
  */
-
 $L['msg400_title'] = '400 - Bad File';
 $L['msg400_body'] = 'Your browser (or proxy) sent a request that this server could not understand.';
 
@@ -86,7 +83,6 @@ $L['msg404_body'] = 'The requested object or URL was not found on this server. <
 /**
  * Server Error Messages
  */
-
 $L['msg500_title'] = '500 Internal Server Error';
 $L['msg500_body'] = 'The server encountered an internal error or misconfiguration and was unable to complete your request. <br />Please contact the administrator and inform them of the time the error occurred, and anything you might have done that may have caused the error.';
 $L['msg503_title'] = '503 Service Temporarily Unavailable';
@@ -95,7 +91,6 @@ $L['msg503_body'] = 'The page you requested is temporarily unavailable for techn
 /**
  * Forum Messages
  */
-
 $L['msg602_title'] = 'Section locked';
 $L['msg602_body'] = 'This section is locked';
 
@@ -105,7 +100,6 @@ $L['msg603_body'] = 'This topic is locked';
 /**
  * System Messages
  */
-
 $L['msg900_title'] = 'Under construction';
 $L['msg900_body'] = 'Page not yet done, come back later please.';
 

@@ -7,7 +7,6 @@
  * @copyright (c) Cotonti Team
  * @license https://github.com/Cotonti/Cotonti/blob/master/License.txt
  */
-
 defined('COT_CODE') or die('Wrong URL.');
 
 /**
@@ -346,7 +345,7 @@ $L['ext_cat_utilities-tools'] = 'Utilities &amp; Tools';
 $L['ext_cat_post-install'] = 'Post-install Scripts';
 
 /**
-  * Structure Section
+ * Structure Section
  */
 $L['adm_structure_code_reserved'] = "Structure code 'all' is reserved.";
 $L['adm_structure_code_required'] = 'Missing required field: Code';
@@ -384,8 +383,8 @@ $L['adm_help_newtags'] = '<br /><br /><b>New tags in tpl files:</b>';
  * Users Section
  */
 $L['adm_rightspergroup'] = 'Rights per group';
-$L['adm_maxsizesingle'] = 'Max size for a single file in '.$L['PFS'].' (KiB)';
-$L['adm_maxsizeallpfs'] = 'Max size of all files together in '.$L['PFS'].' (KiB)';
+$L['adm_maxsizesingle'] = 'Max size for a single file in ' . $L['PFS'] . ' (KiB)';
+$L['adm_maxsizeallpfs'] = 'Max size of all files together in ' . $L['PFS'] . ' (KiB)';
 $L['adm_copyrightsfrom'] = 'Set the same rights as the group';
 $L['adm_rights_maintenance'] = 'Access to site when maintenance mode on';
 $L['adm_skiprights'] = 'Omit rights for this group';
@@ -572,4 +571,4 @@ $L['adm_help_extrafield'] = 'Hint: Field &quot;Base HTML&quot; is set to default
 $L['adm_help_cache'] = 'Not available';
 $L['adm_help_check1'] = 'Not available';
 $L['adm_help_check2'] = 'Not available';
-$L['adm_help_config']= 'Not available';
+$L['adm_help_config'] = 'Not available';

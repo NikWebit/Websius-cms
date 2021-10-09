@@ -7,7 +7,6 @@
  * @copyright (c) Cotonti Team
  * @license https://github.com/Cotonti/Cotonti/blob/master/License.txt
  */
-
 defined('COT_CODE') or die('Wrong URL.');
 
 /**
@@ -42,7 +41,7 @@ $L['aut_registertitle'] = 'Register a new member account';
 $L['aut_regreqnoticetitle'] = 'New account request';
 $L['aut_regrequesttitle'] = 'Registration request';
 $L['aut_usernamealreadyindb'] = 'The user name you provided is already in the database';
-$L['aut_usernametooshort']= 'The user name must be at least 2 chars long';
+$L['aut_usernametooshort'] = 'The user name must be at least 2 chars long';
 
 /**
  * User registration: messages
@@ -101,7 +100,6 @@ $L['users_sendpm'] = 'Send a private message';
 /**
  * User profile & edit
  */
-
 $L['users_id'] = 'User ID';
 $L['users_hideemail'] = 'Always hide email address';
 $L['users_pmnotify'] = 'PM notify';
@@ -123,7 +121,6 @@ $L['users_group_not_found'] = 'Group not found';
 /**
  * Moved from theme.lang
  */
-
 $themelang['usersprofile_Emailpassword'] = 'Your current password';
 $themelang['usersprofile_Emailnotes'] = '<p><b>Email transition process (if email transition is available and new email validation is required):</b></p><ol><li>You can\'t use your current email address</li><li>For security reasons you have to enter your current password</li><li>You should re-activate your account via email to prove the new email address is valid</li><li>Your account will be suspended until you use the validation link</li><li>Upon email validation your account will immediately become active again</li><li>Be careful while typing your new email address; you won\'t have a chance to change it later</li><li>Contact an administrator via email if you made a mistake.</li></ol><p><b>If new email validation is not required, the new email address will become effective immediately.</b></p>';
 
