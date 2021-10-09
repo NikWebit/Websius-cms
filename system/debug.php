@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Debugging Facilities
  *
@@ -6,7 +7,6 @@
  * @copyright (c) Cotonti Team
  * @license https://github.com/Cotonti/Cotonti/blob/master/License.txt
  */
-
 defined('COT_CODE') or die('Wrong URL');
 
 error_reporting(E_ALL ^ E_NOTICE);
@@ -18,15 +18,13 @@ ini_set('display_errors', 1);
  * @example cot_assert($foo, $bar);
  * @see cot_watch(), cot_backtrace(), cot_vardump()
  */
-function cot_print()
-{
-	ob_end_clean();
-	$vars = func_get_args();
-	foreach ($vars as $name => $var)
-	{
-		var_dump($var);
-	}
-	die();
+function cot_print() {
+    ob_end_clean();
+    $vars = func_get_args();
+    foreach ($vars as $name => $var) {
+        var_dump($var);
+    }
+    die();
 }
 
 /**
@@ -36,19 +34,17 @@ function cot_print()
  * @example cot_watch($foo, $bar);
  * @see cot_assert(), cot_checkpoint()
  */
-function cot_watch()
-{
-	global $cfg;
-	$fp = fopen($cfg['debug_logpath'] . '/cot_debug_' . date('Ymd_His') . '.log', 'a');
-	$btrace = debug_backtrace();
-	fputs($fp, $btrace[0]['file'].', '.$btrace[0]['line'].":\n");
-	$vars = func_get_args();
-	foreach ($vars as $name => $var)
-	{
-		fputs($fp, "arg #$name = ".print_r($var, TRUE)."\n");
-	}
-	fputs($fp, "----------------\n");
-	fclose($fp);
+function cot_watch() {
+    global $cfg;
+    $fp = fopen($cfg['debug_logpath'] . '/cot_debug_' . date('Ymd_His') . '.log', 'a');
+    $btrace = debug_backtrace();
+    fputs($fp, $btrace[0]['file'] . ', ' . $btrace[0]['line'] . ":\n");
+    $vars = func_get_args();
+    foreach ($vars as $name => $var) {
+        fputs($fp, "arg #$name = " . print_r($var, TRUE) . "\n");
+    }
+    fputs($fp, "----------------\n");
+    fclose($fp);
 }
 
 /**
@@ -57,18 +53,15 @@ function cot_watch()
  * @param bool $clear_screen If TRUE displays backtrace only. Otherwise it will be printed in normal flow.
  * @see cot_assert(), cot_vardump()
  */
-function cot_backtrace($clear_screen = TRUE)
-{
-	if ($clear_screen)
-	{
-		ob_end_clean();
-		cot_sendheaders('text/plain');
-	}
-	debug_print_backtrace();
-	if ($clear_screen)
-	{
-		die();
-	}
+function cot_backtrace($clear_screen = TRUE) {
+    if ($clear_screen) {
+        ob_end_clean();
+        cot_sendheaders('text/plain');
+    }
+    debug_print_backtrace();
+    if ($clear_screen) {
+        die();
+    }
 }
 
 /**
@@ -77,24 +70,19 @@ function cot_backtrace($clear_screen = TRUE)
  * @param bool $clear_screen If TRUE displays vardump only. Otherwise it will be printed in normal flow.
  * @see COT_VARDUMP_LOCALS, cot_assert(), cot_backtrace()
  */
-function cot_vardump($clear_screen = TRUE)
-{
-	if ($clear_screen)
-	{
-		ob_end_clean();
-	}
-	foreach ($GLOBALS as $key => $val)
-	{
-		if ($key != 'GLOBALS')
-		{
-			echo "<br /><em>$key</em><br />";
-			var_dump($val);
-		}
-	}
-	if ($clear_screen)
-	{
-		die();
-	}
+function cot_vardump($clear_screen = TRUE) {
+    if ($clear_screen) {
+        ob_end_clean();
+    }
+    foreach ($GLOBALS as $key => $val) {
+        if ($key != 'GLOBALS') {
+            echo "<br /><em>$key</em><br />";
+            var_dump($val);
+        }
+    }
+    if ($clear_screen) {
+        die();
+    }
 }
 
 /**
@@ -121,21 +109,18 @@ die();');
  * @global string $cfg['debug_logpath'] Path to debug log file
  * @see COT_CHECKPOINT_LOCALS, cot_watch(), cot_vardump()
  */
-function cot_checkpoint()
-{
-	global $cfg;
-	$fp = fopen($cfg['debug_logpath'] . '/cot_debug_' . date('Ymd_His') . '.log', 'a');
-	$btrace = debug_backtrace();
-	fputs($fp, $btrace[1]['file'] . ', ' . $btrace[1]['line'] . ":\n");
-	foreach ($GLOBALS as $key => $val)
-	{
-		if ($key != 'GLOBALS')
-		{
-			fputs($fp, "$key = " .print_r($val, TRUE) ."\n");
-		}
-	}
-	fputs($fp, "----------------\n");
-	fclose($fp);
+function cot_checkpoint() {
+    global $cfg;
+    $fp = fopen($cfg['debug_logpath'] . '/cot_debug_' . date('Ymd_His') . '.log', 'a');
+    $btrace = debug_backtrace();
+    fputs($fp, $btrace[1]['file'] . ', ' . $btrace[1]['line'] . ":\n");
+    foreach ($GLOBALS as $key => $val) {
+        if ($key != 'GLOBALS') {
+            fputs($fp, "$key = " . print_r($val, TRUE) . "\n");
+        }
+    }
+    fputs($fp, "----------------\n");
+    fclose($fp);
 }
 
 /**

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Form generation API
  *
@@ -6,7 +7,6 @@
  * @copyright (c) Cotonti Team
  * @license https://github.com/Cotonti/Cotonti/blob/master/License.txt
  */
-
 defined('COT_CODE') or die('Wrong URL');
 
 /**
@@ -24,24 +24,23 @@ $cot_textarea_count = 0;
  * @param string $custom_rc Custom resource string name
  * @return string
  */
-function cot_checkbox($chosen, $name, $title = '', $attrs = '', $value = '1', $custom_rc = '')
-{
-	global $R;
-	$input_attrs = cot_rc_attr_string($attrs);
-	$value_off = (is_array($value)) ? $value[0] : 0;
-	$value = (is_array($value)) ? $value[1] : $value;
-	$chosen = cot_import_buffered($name, $chosen);
-	$checked = $chosen ? ' checked="checked"' : '';
-	$rc_name = preg_match('#^(\w+)\[(.*?)\]$#', $name, $mt) ? $mt[1] : $name;
-	$rc = empty($R["input_checkbox_{$rc_name}"]) ? (empty($custom_rc) ? 'input_checkbox' : $custom_rc) : "input_checkbox_{$rc_name}";
-	return cot_rc($rc, array(
-		'value' => htmlspecialchars(cot_import_buffered($name, $value)),
-		'value_off' => $value_off,
-		'name' => $name,
-		'checked' => $checked,
-		'title' => $title,
-		'attrs' => $input_attrs
-	));
+function cot_checkbox($chosen, $name, $title = '', $attrs = '', $value = '1', $custom_rc = '') {
+    global $R;
+    $input_attrs = cot_rc_attr_string($attrs);
+    $value_off = (is_array($value)) ? $value[0] : 0;
+    $value = (is_array($value)) ? $value[1] : $value;
+    $chosen = cot_import_buffered($name, $chosen);
+    $checked = $chosen ? ' checked="checked"' : '';
+    $rc_name = preg_match('#^(\w+)\[(.*?)\]$#', $name, $mt) ? $mt[1] : $name;
+    $rc = empty($R["input_checkbox_{$rc_name}"]) ? (empty($custom_rc) ? 'input_checkbox' : $custom_rc) : "input_checkbox_{$rc_name}";
+    return cot_rc($rc, array(
+        'value' => htmlspecialchars(cot_import_buffered($name, $value)),
+        'value_off' => $value_off,
+        'name' => $name,
+        'checked' => $checked,
+        'title' => $title,
+        'attrs' => $input_attrs
+    ));
 }
 
 /**
@@ -54,24 +53,23 @@ function cot_checkbox($chosen, $name, $title = '', $attrs = '', $value = '1', $c
  * @param string $custom_rc Custom resource string name
  * @return string
  */
-function cot_inputbox($type, $name, $value = '', $attrs = '', $custom_rc = '')
-{
-	global $R, $cfg;
-	$input_attrs = cot_rc_attr_string($attrs);
-	$rc_name = preg_match('#^(\w+)\[(.*?)\]$#', $name, $mt) ? $mt[1] : $name;
-	$rc = empty($R["input_{$type}_{$rc_name}"]) ? (empty($custom_rc) ? "input_{$type}" : $custom_rc) : "input_{$type}_{$rc_name}";
-	if (!isset($R[$rc]) && empty($custom_rc))
-	{
-		$rc = 'input_default';
-	}
-	$error = $cfg['msg_separate'] ? cot_implode_messages($name, 'error') : '';
-	return cot_rc($rc, array(
-		'type' => $type,
-		'name' => $name,
-		'value' => htmlspecialchars((string)cot_import_buffered($name, $value)),
-		'attrs' => $input_attrs,
-		'error' => $error
-	));
+function cot_inputbox($type, $name, $value = '', $attrs = '', $custom_rc = '') {
+    global $R, $cfg;
+    $input_attrs = cot_rc_attr_string($attrs);
+    $rc_name = preg_match('#^(\w+)\[(.*?)\]$#', $name, $mt) ? $mt[1] : $name;
+    $rc = empty($R["input_{$type}_{$rc_name}"]) ? (empty($custom_rc) ? "input_{$type}" : $custom_rc) : "input_{$type}_{$rc_name}";
+    if (!isset($R[$rc]) && empty($custom_rc))
+        $rc = 'input_default';
+
+    $msgSeparate = isset($cfg['msg_separate']) ? $cfg['msg_separate'] : false;
+    $error = $msgSeparate ? cot_implode_messages($name, 'error') : '';
+    return cot_rc($rc, array(
+        'type' => $type,
+        'name' => $name,
+        'value' => htmlspecialchars((string) cot_import_buffered($name, $value)),
+        'attrs' => $input_attrs,
+        'error' => $error
+    ));
 }
 
 /**
@@ -86,46 +84,40 @@ function cot_inputbox($type, $name, $value = '', $attrs = '', $custom_rc = '')
  * @param string $custom_rc Custom resource string name
  * @return string
  */
-function cot_radiobox($chosen, $name, $values, $titles = array(), $attrs = '', $separator = '', $custom_rc = '')
-{
-	global $R;
-	if (!is_array($values))
-	{
-		$values = explode(',', $values);
-	}
-	if (!is_array($titles))
-	{
-		$titles = explode(',', $titles);
-	}
-	$use_titles = count($values) == count($titles);
-	$input_attrs = cot_rc_attr_string($attrs);
-	$chosen = cot_import_buffered($name, $chosen);
-	if (empty($separator))
-	{
-		$separator = $R['input_radio_separator'];
-	}
-	$i = 0;
-	$result = '';
-	$rc_name = preg_match('#^(\w+)\[(.*?)\]$#', $name, $mt) ? $mt[1] : $name;
-	$rc = empty($R["input_radio_{$rc_name}"]) ? (empty($custom_rc) ? 'input_radio' : $custom_rc) : "input_radio_{$rc_name}";
-	foreach ($values as $k => $x)
-	{
-		$checked = ($x == $chosen) ? ' checked="checked"' : '';
-		$title = $use_titles ? htmlspecialchars($titles[$k]) : htmlspecialchars($x);
-		if ($i > 0)
-		{
-			$result .= $separator;
-		}
-		$result .= cot_rc($rc, array(
-			'value' => htmlspecialchars($x),
-			'name' => $name,
-			'checked' => $checked,
-			'title' => $title,
-			'attrs' => $input_attrs
-		));
-		$i++;
-	}
-	return $result;
+function cot_radiobox($chosen, $name, $values, $titles = array(), $attrs = '', $separator = '', $custom_rc = '') {
+    global $R;
+    if (!is_array($values)) {
+        $values = explode(',', $values);
+    }
+    if (!is_array($titles)) {
+        $titles = explode(',', $titles);
+    }
+    $use_titles = count($values) == count($titles);
+    $input_attrs = cot_rc_attr_string($attrs);
+    $chosen = cot_import_buffered($name, $chosen);
+    if (empty($separator)) {
+        $separator = $R['input_radio_separator'];
+    }
+    $i = 0;
+    $result = '';
+    $rc_name = preg_match('#^(\w+)\[(.*?)\]$#', $name, $mt) ? $mt[1] : $name;
+    $rc = empty($R["input_radio_{$rc_name}"]) ? (empty($custom_rc) ? 'input_radio' : $custom_rc) : "input_radio_{$rc_name}";
+    foreach ($values as $k => $x) {
+        $checked = ($x == $chosen) ? ' checked="checked"' : '';
+        $title = $use_titles ? htmlspecialchars($titles[$k]) : htmlspecialchars($x);
+        if ($i > 0) {
+            $result .= $separator;
+        }
+        $result .= cot_rc($rc, array(
+            'value' => htmlspecialchars($x),
+            'name' => $name,
+            'checked' => $checked,
+            'title' => $title,
+            'attrs' => $input_attrs
+        ));
+        $i++;
+    }
+    return $result;
 }
 
 /**
@@ -141,59 +133,57 @@ function cot_radiobox($chosen, $name, $values, $titles = array(), $attrs = '', $
  * @param bool $htmlspecialchars_bypass Bypass htmlspecialchars() in values
  * @return string
  */
-function cot_selectbox($chosen, $name, $values, $titles = array(), $add_empty = true, $attrs = '', $custom_rc = '', $htmlspecialchars_bypass = false)
-{
-	global $R, $cfg;
+function cot_selectbox($chosen, $name, $values, $titles = array(), $add_empty = true, $attrs = '', $custom_rc = '', $htmlspecialchars_bypass = false) {
+    global $R, $cfg;
 
-	if (!is_array($values))
-	{
-		$values = explode(',', $values);
-	}
-	if (!is_array($titles))
-	{
-		$titles = explode(',', $titles);
-	}
-	$use_titles = count($values) == count($titles);
-	$input_attrs = cot_rc_attr_string($attrs);
-	$chosen = cot_import_buffered($name, $chosen);
+    if (!is_array($values)) {
+        $values = explode(',', $values);
+    }
+    if (!is_array($titles)) {
+        $titles = explode(',', $titles);
+    }
+
+    $msgSeparate = isset($cfg['msg_separate']) ? $cfg['msg_separate'] : false;
+
+    $use_titles = count($values) == count($titles);
+    $input_attrs = cot_rc_attr_string($attrs);
+    $chosen = cot_import_buffered($name, $chosen);
     $multi = is_array($chosen) && (mb_strpos($input_attrs, 'multiple') !== false);
-	$error = $cfg['msg_separate'] ? cot_implode_messages($name, 'error') : '';
-	$rc_name = preg_match('#^(\w+)\[(.*?)\]$#', $name, $mt) ? $mt[1] : $name;
+    $error = $msgSeparate ? cot_implode_messages($name, 'error') : '';
+    $rc_name = preg_match('#^(\w+)\[(.*?)\]$#', $name, $mt) ? $mt[1] : $name;
 
-	$selected = (is_null($chosen) || $chosen === '' || $chosen == '00') ? ' selected="selected"' : '';
-	$rc = empty($R["input_option_{$rc_name}"]) ? 'input_option' : "input_option_{$rc_name}";
+    $selected = (is_null($chosen) || $chosen === '' || $chosen == '00') ? ' selected="selected"' : '';
+    $rc = empty($R["input_option_{$rc_name}"]) ? 'input_option' : "input_option_{$rc_name}";
 
     $options = '';
 
-	if ($add_empty)
-	{
-		$options .= cot_rc($rc, array(
-			'value' => '',
-			'selected' => $selected,
-			'title' => $R['code_option_empty']
-		));
-	}
-	foreach ($values as $k => $x)
-	{
-		$x = trim($x);
-		$selected = ($multi && in_array($x, $chosen)) || (!$multi && $x == $chosen) ? ' selected="selected"' : '';
-		$title = $use_titles ? htmlspecialchars($titles[$k]) : htmlspecialchars($x);
-		$options .= cot_rc($rc, array(
-			'value' => $htmlspecialchars_bypass ? $x : htmlspecialchars($x),
-			'selected' => $selected,
-			'title' => $title
-		));
-	}
+    if ($add_empty) {
+        $options .= cot_rc($rc, array(
+            'value' => '',
+            'selected' => $selected,
+            'title' => $R['code_option_empty']
+        ));
+    }
+    foreach ($values as $k => $x) {
+        $x = trim($x);
+        $selected = ($multi && in_array($x, $chosen)) || (!$multi && $x == $chosen) ? ' selected="selected"' : '';
+        $title = $use_titles ? htmlspecialchars($titles[$k]) : htmlspecialchars($x);
+        $options .= cot_rc($rc, array(
+            'value' => $htmlspecialchars_bypass ? $x : htmlspecialchars($x),
+            'selected' => $selected,
+            'title' => $title
+        ));
+    }
 
-	$rc = empty($R["input_select_{$rc_name}"]) ? (empty($custom_rc) ? 'input_select' : $custom_rc) : "input_select_{$rc_name}";
+    $rc = empty($R["input_select_{$rc_name}"]) ? (empty($custom_rc) ? 'input_select' : $custom_rc) : "input_select_{$rc_name}";
 
-	$result = cot_rc($rc, array(
-		'name' => $name,
-		'attrs' => $input_attrs,
-		'error' => $error,
-		'options' => $options
-	));
-	return $result;
+    $result = cot_rc($rc, array(
+        'name' => $name,
+        'attrs' => $input_attrs,
+        'error' => $error,
+        'options' => $options
+    ));
+    return $result;
 }
 
 /**
@@ -207,23 +197,21 @@ function cot_selectbox($chosen, $name, $values, $titles = array(), $add_empty = 
  * @param string $custom_rc Custom resource string name
  * @return string
  */
-function cot_selectbox_countries($chosen, $name, $add_empty = true, $attrs = '', $custom_rc = '')
-{
-	global $cot_countries;
+function cot_selectbox_countries($chosen, $name, $add_empty = true, $attrs = '', $custom_rc = '') {
+    global $cot_countries;
 
-	if (!$cot_countries)
-		include_once cot_langfile('countries', 'core');
+    if (!$cot_countries)
+        include_once cot_langfile('countries', 'core');
 
-	$codes = array_keys($cot_countries);
-	$names = array_values($cot_countries);
+    $codes = array_keys($cot_countries);
+    $names = array_values($cot_countries);
 
-	if ($add_empty)
-	{
-		array_unshift($codes, '00');
-		array_unshift($names, '---');
-	}
+    if ($add_empty) {
+        array_unshift($codes, '00');
+        array_unshift($names, '---');
+    }
 
-	return cot_selectbox($chosen, $name, $codes, $names, false, $attrs, $custom_rc);
+    return cot_selectbox($chosen, $name, $codes, $names, false, $attrs, $custom_rc);
 }
 
 /**
@@ -238,93 +226,85 @@ function cot_selectbox_countries($chosen, $name, $add_empty = true, $attrs = '',
  * @param string $custom_rc Custom resource string name
  * @return string
  */
-function cot_selectbox_date($utime, $mode = 'long', $name = '', $max_year = 2030, $min_year = 2000, $usertimezone = true, $custom_rc = '')
-{
-	global $L, $R, $usr;
+function cot_selectbox_date($utime, $mode = 'long', $name = '', $max_year = 2030, $min_year = 2000, $usertimezone = true, $custom_rc = '') {
+    global $L, $R, $usr;
 
-    if (function_exists('cot_selectbox_date_custom'))
-    {
+    if (function_exists('cot_selectbox_date_custom')) {
         return cot_selectbox_date_custom($utime, $mode, $name, $max_year, $min_year, $usertimezone, $custom_rc);
     }
 
     $result = NULL;
 
     /* === Hook === */
-    foreach (cot_getextplugins('form.date') as $pl)
-    {
+    foreach (cot_getextplugins('form.date') as $pl) {
         include $pl;
     }
     /* ===== */
 
-    if($result !== NULL) return $result;
+    if ($result !== NULL)
+        return $result;
 
-	$rc_name = preg_match('#^(\w+)\[(.*?)\]$#', $name, $mt) ? $mt[1] : $name;
+    $rc_name = preg_match('#^(\w+)\[(.*?)\]$#', $name, $mt) ? $mt[1] : $name;
 
-	$utime = ($usertimezone && $utime > 0) ? ($utime + $usr['timezone'] * 3600) : $utime;
+    $utime = ($usertimezone && $utime > 0) ? ($utime + $usr['timezone'] * 3600) : $utime;
 
-	if ($utime == 0)
-	{
-		list($s_year, $s_month, $s_day, $s_hour, $s_minute) = array(null, null, null, null, null);
-		$buffered = cot_import_buffered($name, null);
-		if (is_array($buffered))
-		{
-			$s_year   = $buffered['year'];
-			$s_month  = $buffered['month'];
-			$s_day    = $buffered['day'];
-			$s_hour   = $buffered['hour'] > 0 ? $buffered['hour'] : 1;
-			$s_minute = $buffered['minute'];
-		}
-	}
-	else
-	{
-		list($s_year, $s_month, $s_day, $s_hour, $s_minute) = explode('-', @date('Y-m-d-H-i', $utime));
-	}
-	$months = array();
-	$months[1] = $L['January'];
-	$months[2] = $L['February'];
-	$months[3] = $L['March'];
-	$months[4] = $L['April'];
-	$months[5] = $L['May'];
-	$months[6] = $L['June'];
-	$months[7] = $L['July'];
-	$months[8] = $L['August'];
-	$months[9] = $L['September'];
-	$months[10] = $L['October'];
-	$months[11] = $L['November'];
-	$months[12] = $L['December'];
+    if ($utime == 0) {
+        list($s_year, $s_month, $s_day, $s_hour, $s_minute) = array(null, null, null, null, null);
+        $buffered = cot_import_buffered($name, null);
+        if (is_array($buffered)) {
+            $s_year = $buffered['year'];
+            $s_month = $buffered['month'];
+            $s_day = $buffered['day'];
+            $s_hour = $buffered['hour'] > 0 ? $buffered['hour'] : 1;
+            $s_minute = $buffered['minute'];
+        }
+    } else {
+        list($s_year, $s_month, $s_day, $s_hour, $s_minute) = explode('-', @date('Y-m-d-H-i', $utime));
+    }
+    $months = array();
+    $months[1] = $L['January'];
+    $months[2] = $L['February'];
+    $months[3] = $L['March'];
+    $months[4] = $L['April'];
+    $months[5] = $L['May'];
+    $months[6] = $L['June'];
+    $months[7] = $L['July'];
+    $months[8] = $L['August'];
+    $months[9] = $L['September'];
+    $months[10] = $L['October'];
+    $months[11] = $L['November'];
+    $months[12] = $L['December'];
 
-	$year = cot_selectbox($s_year, $name.'[year]', range($max_year, $min_year, -1));
-	$month = cot_selectbox($s_month, $name.'[month]', array_keys($months), array_values($months));
-	$day = cot_selectbox($s_day, $name.'[day]', range(1, 31));
+    $year = cot_selectbox($s_year, $name . '[year]', range($max_year, $min_year, -1));
+    $month = cot_selectbox($s_month, $name . '[month]', array_keys($months), array_values($months));
+    $day = cot_selectbox($s_day, $name . '[day]', range(1, 31));
 
-	$range = array();
-	for ($i = 0; $i < 24; $i++)
-	{
-		$range[] = sprintf('%02d', $i);
-	}
-	$hour = cot_selectbox($s_hour, $name.'[hour]', $range);
+    $range = array();
+    for ($i = 0; $i < 24; $i++) {
+        $range[] = sprintf('%02d', $i);
+    }
+    $hour = cot_selectbox($s_hour, $name . '[hour]', $range);
 
-	$range = array();
-	for ($i = 0; $i < 60; $i++)
-	{
-		$range[] = sprintf('%02d', $i);
-	}
+    $range = array();
+    for ($i = 0; $i < 60; $i++) {
+        $range[] = sprintf('%02d', $i);
+    }
 
-	$minute = cot_selectbox($s_minute, $name.'[minute]', $range);
+    $minute = cot_selectbox($s_minute, $name . '[minute]', $range);
 
-	$rc = empty($R["input_date_{$mode}"]) ? 'input_date' : "input_date_{$mode}";
-	$rc = empty($R["input_date_{$rc_name}"]) ? $rc : "input_date_{$rc_name}";
-	$rc = empty($custom_rc) ? $rc : $custom_rc;
+    $rc = empty($R["input_date_{$mode}"]) ? 'input_date' : "input_date_{$mode}";
+    $rc = empty($R["input_date_{$rc_name}"]) ? $rc : "input_date_{$rc_name}";
+    $rc = empty($custom_rc) ? $rc : $custom_rc;
 
-	$result = cot_rc($rc, array(
-		'day' => $day,
-		'month' => $month,
-		'year' => $year,
-		'hour' => $hour,
-		'minute' => $minute
-	));
+    $result = cot_rc($rc, array(
+        'day' => $day,
+        'month' => $month,
+        'year' => $year,
+        'hour' => $hour,
+        'minute' => $minute
+    ));
 
-	return $result;
+    return $result;
 }
 
 /**
@@ -337,32 +317,28 @@ function cot_selectbox_date($utime, $mode = 'long', $name = '', $max_year = 2030
  * @param string $custom_rc Custom resource string name
  * @return string
  */
-function cot_selectbox_lang($chosen, $name, $add_empty = false, $attrs = '', $custom_rc = '')
-{
-	global $cot_languages, $cot_countries, $cfg;
+function cot_selectbox_lang($chosen, $name, $add_empty = false, $attrs = '', $custom_rc = '') {
+    global $cot_languages, $cot_countries, $cfg;
 
-	$handle = opendir($cfg['lang_dir'] . '/');
-	while ($f = readdir($handle))
-	{
-		if ($f[0] != '.' && is_dir($cfg['lang_dir'] . '/' . $f))
-		{
-			$langlist[] = $f;
-		}
-	}
-	closedir($handle);
-	sort($langlist);
+    $handle = opendir($cfg['lang_dir'] . '/');
+    while ($f = readdir($handle)) {
+        if ($f[0] != '.' && is_dir($cfg['lang_dir'] . '/' . $f)) {
+            $langlist[] = $f;
+        }
+    }
+    closedir($handle);
+    sort($langlist);
 
-	if (!$cot_countries)
-		include_once cot_langfile('countries', 'core');
+    if (!$cot_countries)
+        include_once cot_langfile('countries', 'core');
 
-	$vals = array();
-	$titles = array();
-	foreach ($langlist as $lang)
-	{
-		$vals[] = $lang;
-		$titles[] = (empty($cot_languages[$lang]) ? $cot_countries[$lang] : $cot_languages[$lang]) . " ($lang)";
-	}
-	return cot_selectbox($chosen, $name, $vals, $titles, $add_empty, $attrs, $custom_rc);
+    $vals = array();
+    $titles = array();
+    foreach ($langlist as $lang) {
+        $vals[] = $lang;
+        $titles[] = (empty($cot_languages[$lang]) ? $cot_countries[$lang] : $cot_languages[$lang]) . " ($lang)";
+    }
+    return cot_selectbox($chosen, $name, $vals, $titles, $add_empty, $attrs, $custom_rc);
 }
 
 /**
@@ -376,15 +352,13 @@ function cot_selectbox_lang($chosen, $name, $add_empty = false, $attrs = '', $cu
  * @param string $custom_rc Custom resource string name
  * @return string
  */
-function cot_selectbox_timezone($chosen, $name, $add_gmt = true, $dst = false, $attrs = '', $custom_rc = '')
-{
-	$timezonelist = cot_timezone_list($add_gmt, $dst);
-	foreach($timezonelist as $timezone)
-	{
-		$names[] = $timezone['identifier'];
-		$titles[] = $timezone['description'];
-	}
-	return cot_selectbox($chosen, $name, $names, $titles, false, $attrs, $custom_rc);
+function cot_selectbox_timezone($chosen, $name, $add_gmt = true, $dst = false, $attrs = '', $custom_rc = '') {
+    $timezonelist = cot_timezone_list($add_gmt, $dst);
+    foreach ($timezonelist as $timezone) {
+        $names[] = $timezone['identifier'];
+        $titles[] = $timezone['description'];
+    }
+    return cot_selectbox($chosen, $name, $names, $titles, false, $attrs, $custom_rc);
 }
 
 /**
@@ -403,31 +377,27 @@ function cot_selectbox_timezone($chosen, $name, $add_gmt = true, $dst = false, $
  * @global CotDB $db
  */
 function cot_selectbox_structure($extension, $check, $name, $subcat = '', $hideprivate = true, $is_module = true,
-                                 $add_empty = false, $attrs = '', $custom_rc = '')
-{
-	global $structure;
+        $add_empty = false, $attrs = '', $custom_rc = '') {
+    global $structure;
 
-	$structure[$extension] = (is_array($structure[$extension])) ? $structure[$extension] : array();
+    $structure[$extension] = (is_array($structure[$extension])) ? $structure[$extension] : array();
 
-	$result_array = array();
-	foreach ($structure[$extension] as $i => $x)
-	{
-		$display = ($hideprivate && $is_module) ? cot_auth($extension, $i, 'W') : true;
-		if ($display && !empty($subcat) && isset($structure[$extension][$subcat]))
-		{
-			$mtch = $structure[$extension][$subcat]['path'].".";
-			$mtchlen = mb_strlen($mtch);
-			$display = (mb_substr($x['path'], 0, $mtchlen) == $mtch || $i === $subcat);
-		}
+    $result_array = array();
+    foreach ($structure[$extension] as $i => $x) {
+        $display = ($hideprivate && $is_module) ? cot_auth($extension, $i, 'W') : true;
+        if ($display && !empty($subcat) && isset($structure[$extension][$subcat])) {
+            $mtch = $structure[$extension][$subcat]['path'] . ".";
+            $mtchlen = mb_strlen($mtch);
+            $display = (mb_substr($x['path'], 0, $mtchlen) == $mtch || $i === $subcat);
+        }
 
-		if ((!$is_module || cot_auth($extension, $i, 'R')) && $i!='all' && $display)
-		{
-			$result_array[$i] = $x['tpath'];
-		}
-	}
-	$result = cot_selectbox($check, $name, array_keys($result_array), array_values($result_array), $add_empty, $attrs, $custom_rc);
+        if ((!$is_module || cot_auth($extension, $i, 'R')) && $i != 'all' && $display) {
+            $result_array[$i] = $x['tpath'];
+        }
+    }
+    $result = cot_selectbox($check, $name, array_keys($result_array), array_values($result_array), $add_empty, $attrs, $custom_rc);
 
-	return($result);
+    return($result);
 }
 
 /**
@@ -441,23 +411,23 @@ function cot_selectbox_structure($extension, $check, $name, $subcat = '', $hidep
  * @param string $custom_rc Custom resource string name
  * @return string
  */
-function cot_textarea($name, $value, $rows, $cols, $attrs = '', $custom_rc = '')
-{
-	global $cot_textarea_count, $R, $cfg;
-	$cot_textarea_count++;
-	$input_attrs = cot_rc_attr_string($attrs);
-	$rc_name = preg_match('#^(\w+)\[(.*?)\]$#', $name, $mt) ? $mt[1] : $name;
-	$rc = empty($R["input_textarea_{$rc_name}"]) ? (empty($custom_rc) ? 'input_textarea' : $custom_rc) : "input_textarea_{$rc_name}";
-	$error = $cfg['msg_separate'] ? cot_implode_messages($name, 'error') : '';
-	$buffered = cot_import_buffered($name, $value);
-	return cot_rc($rc, array(
-		'name' => $name,
-		'value' => is_string($buffered) ? htmlspecialchars($buffered) : '',
-		'rows' => $rows,
-		'cols' => $cols,
-		'attrs' => $input_attrs,
-		'error' => $error
-	));
+function cot_textarea($name, $value, $rows, $cols, $attrs = '', $custom_rc = '') {
+    global $cot_textarea_count, $R, $cfg;
+    $cot_textarea_count++;
+    $input_attrs = cot_rc_attr_string($attrs);
+    $rc_name = preg_match('#^(\w+)\[(.*?)\]$#', $name, $mt) ? $mt[1] : $name;
+    $rc = empty($R["input_textarea_{$rc_name}"]) ? (empty($custom_rc) ? 'input_textarea' : $custom_rc) : "input_textarea_{$rc_name}";
+    $msgSeparate = isset($cfg['msg_separate']) ? $cfg['msg_separate'] : false;
+    $error = $msgSeparate ? cot_implode_messages($name, 'error') : '';
+    $buffered = cot_import_buffered($name, $value);
+    return cot_rc($rc, array(
+        'name' => $name,
+        'value' => is_string($buffered) ? htmlspecialchars($buffered) : '',
+        'rows' => $rows,
+        'cols' => $cols,
+        'attrs' => $input_attrs,
+        'error' => $error
+    ));
 }
 
 /**
@@ -472,57 +442,48 @@ function cot_textarea($name, $value, $rows, $cols, $attrs = '', $custom_rc = '')
  * @param string $custom_rc Custom resource string name
  * @return string
  */
-function cot_checklistbox($chosen, $name, $values, $titles = array(), $attrs = '', $separator = '', $addnull = true, $custom_rc = '')
-{
-	global $R;
-	if (!is_array($values))
-	{
-		$values = explode(',', $values);
-	}
-	if (!is_array($titles))
-	{
-		$titles = explode(',', $titles);
-	}
-	$use_titles = count($values) == count($titles);
-	$input_attrs = cot_rc_attr_string($attrs);
+function cot_checklistbox($chosen, $name, $values, $titles = array(), $attrs = '', $separator = '', $addnull = true, $custom_rc = '') {
+    global $R;
+    if (!is_array($values)) {
+        $values = explode(',', $values);
+    }
+    if (!is_array($titles)) {
+        $titles = explode(',', $titles);
+    }
+    $use_titles = count($values) == count($titles);
+    $input_attrs = cot_rc_attr_string($attrs);
 
-	$chosen = cot_import_buffered($name, $chosen);
+    $chosen = cot_import_buffered($name, $chosen);
 
-	if (empty($separator))
-	{
-		$separator = $R['input_radio_separator'];
-	}
+    if (empty($separator)) {
+        $separator = $R['input_radio_separator'];
+    }
 
-	$i = 0;
-	$result = '';
-	if ($addnull)
-	{
-		$result .= cot_inputbox('hidden', $name.'[nullval]', 'nullval');
-	}
-	$rc_name = preg_match('#^(\w+)\[(.*?)\]$#', $name, $mt) ? $mt[1] : $name;
+    $i = 0;
+    $result = '';
+    if ($addnull) {
+        $result .= cot_inputbox('hidden', $name . '[nullval]', 'nullval');
+    }
+    $rc_name = preg_match('#^(\w+)\[(.*?)\]$#', $name, $mt) ? $mt[1] : $name;
 
-	$rc = empty($R["input_check_{$rc_name}"]) ? (empty($custom_rc) ? 'input_check' : $custom_rc) : "input_check_{$rc_name}";
-	foreach ($values as $k => $x)
-	{
-		$i++;
-		$x = trim($x);
-		$checked = (is_array($chosen) && in_array($x, $chosen)) || (!is_array($chosen) && $x == $chosen) ? ' checked="checked"' : '';
-		$title = $use_titles ? htmlspecialchars($titles[$k]) : htmlspecialchars($x);
-		if ($i > 1)
-		{
-			$result .= $separator;
-		}
-		$result .= cot_rc($rc, array(
-			'value' => htmlspecialchars($x),
-			'name' => $name.'['.$i.']',
-			'checked' => $checked,
-			'title' => $title,
-			'attrs' => $input_attrs
-		));
-
-	}
-	return $result;
-
+    $rc = empty($R["input_check_{$rc_name}"]) ? (empty($custom_rc) ? 'input_check' : $custom_rc) : "input_check_{$rc_name}";
+    foreach ($values as $k => $x) {
+        $i++;
+        $x = trim($x);
+        $checked = (is_array($chosen) && in_array($x, $chosen)) || (!is_array($chosen) && $x == $chosen) ? ' checked="checked"' : '';
+        $title = $use_titles ? htmlspecialchars($titles[$k]) : htmlspecialchars($x);
+        if ($i > 1) {
+            $result .= $separator;
+        }
+        $result .= cot_rc($rc, array(
+            'value' => htmlspecialchars($x),
+            'name' => $name . '[' . $i . ']',
+            'checked' => $checked,
+            'title' => $title,
+            'attrs' => $input_attrs
+        ));
+    }
+    return $result;
 }
 
 /**
@@ -536,31 +497,28 @@ function cot_checklistbox($chosen, $name, $values, $titles = array(), $attrs = '
  * @param string $custom_rc Custom resource string name
  * @return string
  */
-function cot_filebox($name, $value = '', $filepath = '', $delname ='', $attrs = '', $custom_rc = '')
-{
-	global $R, $cfg;
-	$input_attrs = cot_rc_attr_string($attrs);
-	$rc_name = preg_match('#^(\w+)\[(.*?)\]$#', $name, $mt) ? $mt[1] : $name;
+function cot_filebox($name, $value = '', $filepath = '', $delname = '', $attrs = '', $custom_rc = '') {
+    global $R, $cfg;
+    $input_attrs = cot_rc_attr_string($attrs);
+    $rc_name = preg_match('#^(\w+)\[(.*?)\]$#', $name, $mt) ? $mt[1] : $name;
 
-	$custom_rc = explode('|', $custom_rc, 2);
-	if(empty($value))
-	{
-		$rc = empty($R["input_filebox_{$rc_name}_empty"]) ? (empty($custom_rc[1]) ? 'input_filebox_empty' : $custom_rc[1]) : "input_filebox_{$rc_name}_empty";
-	}
-	else
-	{
-		$rc = empty($R["input_filebox_{$rc_name}"]) ? (empty($custom_rc[0]) ? 'input_filebox' : $custom_rc[0]) : "input_filebox_{$rc_name}";
-	}
+    $custom_rc = explode('|', $custom_rc, 2);
+    if (empty($value)) {
+        $rc = empty($R["input_filebox_{$rc_name}_empty"]) ? (empty($custom_rc[1]) ? 'input_filebox_empty' : $custom_rc[1]) : "input_filebox_{$rc_name}_empty";
+    } else {
+        $rc = empty($R["input_filebox_{$rc_name}"]) ? (empty($custom_rc[0]) ? 'input_filebox' : $custom_rc[0]) : "input_filebox_{$rc_name}";
+    }
 
-	$filepath = empty($filepath) ? $value : $filepath;
-	$delname = empty($delname) ? 'del'.$name : $delname;
-	$error = $cfg['msg_separate'] ? cot_implode_messages($name, 'error') : '';
-	return cot_rc($rc, array(
-		'name' => $name,
-		'filepath' => $filepath,
-		'delname' => $delname,
-		'value' => $value,
-		'attrs' => $input_attrs,
-		'error' => $error
-	));
+    $filepath = empty($filepath) ? $value : $filepath;
+    $delname = empty($delname) ? 'del' . $name : $delname;
+    $msgSeparate = isset($cfg['msg_separate']) ? $cfg['msg_separate'] : false;
+    $error = $msgSeparate ? cot_implode_messages($name, 'error') : '';
+    return cot_rc($rc, array(
+        'name' => $name,
+        'filepath' => $filepath,
+        'delname' => $delname,
+        'value' => $value,
+        'attrs' => $input_attrs,
+        'error' => $error
+    ));
 }
