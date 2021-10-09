@@ -40,12 +40,11 @@ $cfg['admintheme'] = '';   // Put custom administration theme name here
 
 /* SSL parameters and First Cookie SameSite Policy
   --------------------------------------------------------------------------- */
-$cfg['ssl_port'] = '8443';
-$cfg['cookie_samesite'] = 'Lax';   // Lax, Strict, None||'';
-$cfg['session_cookie_samesite'] = 'Lax';   // Lax, Strict, None||'';
+$cfg['ssl_port'] = '443';
+$cfg['cookie_samesite'] = 'Lax';   // Lax, Strict, None or '';
+$cfg['session_cookie_samesite'] = 'Lax';   // Lax, Strict, None or '';
 // See the list of valid values here:
-// https://php.net/function.setcookie.html
-// https://php.net/function.session-set-cookie-params.html
+// https://php.net/function.setcookie.html  https://php.net/function.session-set-cookie-params.html
 
 /* Performance-related settings
   --------------------------------------------------------------------------- */
