@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Admin function library.
  *
@@ -6,7 +7,6 @@
  * @copyright (c) Cotonti Team
  * @license https://github.com/Cotonti/Cotonti/blob/master/License.txt
  */
-
 defined('COT_CODE') or die('Wrong URL.');
 
 // Requirements
@@ -25,18 +25,14 @@ unset($adminmain, $adminhelp, $admin_icon, $plugin_body, $plugin_title, $plugin_
  * @param bool $cond Condition
  * @return string
  */
-function cot_linkif($url, $text, $cond)
-{
-	if ($cond)
-	{
-		$res = '<a href="'.$url.'">'.$text.'</a>';
-	}
-	else
-	{
-		$res = $text;
-	}
+function cot_linkif($url, $text, $cond) {
+    if ($cond) {
+        $res = '<a href="' . $url . '">' . $text . '</a>';
+    } else {
+        $res = $text;
+    }
 
-	return $res;
+    return $res;
 }
 
 /**
@@ -50,38 +46,35 @@ function cot_linkif($url, $text, $cond)
  * @param string 	$custom_rc Custom resource string name
  * @return string
  */
-function cot_selectbox_groups($chosen, $name, $skip = null, $add_empty = false, $attrs = '', $custom_rc = '')
-{
-	global $cot_groups;
+function cot_selectbox_groups($chosen, $name, $skip = null, $add_empty = false, $attrs = '', $custom_rc = '') {
+    global $cot_groups;
 
-	$opts = array();
-	if(empty($skip)) $skip = array();
-	if(!is_array($skip)) $skip = array($skip);
-	foreach($cot_groups as $k => $i)
-	{
-		if (!$i['skiprights'] && !in_array($k, $skip))
-		{
-			$opts[$k] = $cot_groups[$k]['name'];
-		}
-	}
+    $opts = array();
+    if (empty($skip))
+        $skip = array();
+    if (!is_array($skip))
+        $skip = array($skip);
+    foreach ($cot_groups as $k => $i) {
+        if (!$i['skiprights'] && !in_array($k, $skip)) {
+            $opts[$k] = $cot_groups[$k]['name'];
+        }
+    }
 
-	return cot_selectbox($chosen, $name, array_keys($opts), array_values($opts), $add_empty, $attrs, $custom_rc);
+    return cot_selectbox($chosen, $name, array_keys($opts), array_values($opts), $add_empty, $attrs, $custom_rc);
 }
 
 /**
-* Returns a list of time zone names used for setting default time zone
-*/
-function cot_config_timezones()
-{
-	global $L;
-	$timezonelist = cot_timezone_list(true, false);
-	foreach($timezonelist as $timezone)
-	{
-		$names[] = $timezone['identifier'];
-		$titles[] = $timezone['description'];
-	}
-	$L['cfg_defaulttimezone_params'] = $titles;
-	return $names;
+ * Returns a list of time zone names used for setting default time zone
+ */
+function cot_config_timezones() {
+    global $L;
+    $timezonelist = cot_timezone_list(true, false);
+    foreach ($timezonelist as $timezone) {
+        $names[] = $timezone['identifier'];
+        $titles[] = $timezone['description'];
+    }
+    $L['cfg_defaulttimezone_params'] = $titles;
+    return $names;
 }
 
 /**
@@ -92,73 +85,69 @@ function cot_config_timezones()
  * @param int $maxsize Search limit
  * @return int
  */
-function cot_stringinfile($file, $str, $maxsize=32768)
-{
-	if ($fp = @fopen($file, 'r'))
-	{
-		$data = fread($fp, $maxsize);
-		$pos = mb_strpos($data, $str);
-		$result = !($pos === FALSE);
-	}
-	else
-	{
-		$result = FALSE;
-	}
-	@fclose($fp);
-	return $result;
+function cot_stringinfile($file, $str, $maxsize = 32768) {
+    if ($fp = @fopen($file, 'r')) {
+        $data = fread($fp, $maxsize);
+        $pos = mb_strpos($data, $str);
+        $result = !($pos === FALSE);
+    } else {
+        $result = FALSE;
+    }
+    @fclose($fp);
+    return $result;
 }
 
-function cot_get_extensionparams($code, $is_module = false)
-{
-	global $cfg, $cot_modules, $cot_plugins_enabled;
-	$dir = $is_module ? $cfg['modules_dir'] : $cfg['plugins_dir'];
+function cot_get_extensionparams($code, $is_module = false) {
+    global $cfg, $cot_modules, $cot_plugins_enabled;
 
-	if($is_module)
-	{
-		$name = $cot_modules[$code]['title'];
-	}
-	else
-	{
-		$name = $cot_plugins_enabled[$code]['title'];
-	}
+    $dir = $is_module ? cot::$cfg['modules_dir'] : cot::$cfg['plugins_dir'];
 
-	if(empty($name))
-	{
-		$ext_info = $dir . '/' . $code . '/' . $code . '.setup.php';
-		$exists = file_exists($ext_info);
-		if ($exists)
-		{
-			$info = cot_infoget($ext_info, 'COT_EXT');
-			if (!$info && cot_plugin_active('genoa'))
-			{
-				// Try to load old format info
-				$info = cot_infoget($ext_info, 'SED_EXTPLUGIN');
-			}
-			$name = $info['Name'];
-			$desc = $info['Desc'];
-		}
-		else
-		{
-			$info = array(
-				'Name' => $code
-			);
-		}
-		$name = $info['Name'];
-	}
-	$icofile = $dir . '/' . $code . '/' . $code . '.png';
-	$icon = file_exists($icofile) ? $icofile : '';
+    if ($is_module) {
+        if (isset($cot_modules[$code]))
+            $name = $cot_modules[$code]['title'];
+    } else {
+        if (isset($cot_plugins_enabled[$code]))
+            $name = $cot_plugins_enabled[$code]['title'];
+    }
 
-	$langfile = cot_langfile($code, $is_module ? 'module' : 'plug');
-	if (file_exists($langfile))
-	{
-		include $langfile;
-		if (!empty($L['info_name'])) $name = $L['info_name'];
-		if (!empty($L['info_desc'])) $desc = $L['info_desc'];
-	}
+    $desc = '';
+    if (empty($name)) {
+        $ext_info = $dir . '/' . $code . '/' . $code . '.setup.php';
+        $exists = file_exists($ext_info);
+        $info = false;
+        if ($exists) {
+            $info = cot_infoget($ext_info, 'COT_EXT');
+            if (!$info && cot_plugin_active('genoa')) {
+                // Try to load old format info
+                $info = cot_infoget($ext_info, 'SED_EXTPLUGIN');
+            }
 
-	return array(
-		'name' => htmlspecialchars($name),
-		'desc' => $desc,
-		'icon' => $icon
-	);
+            $desc = !empty($info) ? $info['Description'] : '';
+        }
+
+        if ($info == false) {
+            $info = array(
+                'Name' => $code
+            );
+        }
+
+        $name = (isset($info['Name']) && $info['Name'] != '') ? $info['Name'] : $code;
+    }
+    $icofile = $dir . '/' . $code . '/' . $code . '.png';
+    $icon = file_exists($icofile) ? $icofile : '';
+
+    $langfile = cot_langfile($code, $is_module ? 'module' : 'plug');
+    if (file_exists($langfile)) {
+        include $langfile;
+        if (!empty(cot::$L['info_name']))
+            $name = cot::$L['info_name'];
+        if (!empty(cot::$L['info_desc']))
+            $desc = cot::$L['info_desc'];
+    }
+
+    return array(
+        'name' => htmlspecialchars($name),
+        'desc' => $desc,
+        'icon' => $icon
+    );
 }

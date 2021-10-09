@@ -3,14 +3,13 @@
 /**
  * Administration
  */
-
 // Status indicators
-$R['admin_code_missing'] = '<span class="strong extension missing">'.$L['adm_missing'].'</span>';
-$R['admin_code_notinstalled'] = '<span class="strong extension notinstalled">'.$L['adm_notinstalled'].'</span>';
-$R['admin_code_partrunning'] = '<span class="strong extention partrunning">'.$L['adm_partrunning'].'</span>';
-$R['admin_code_paused'] = '<span class="strong extension paused">'.$L['adm_paused'].'</span>';
-$R['admin_code_present'] = '<span class="strong extension present">'.$L['adm_present'].'</span>';
-$R['admin_code_running'] = '<span class="strong extension running">'.$L['adm_running'].'</span>';
+$R['admin_code_missing'] = '<span class="strong extension missing">' . $L['adm_missing'] . '</span>';
+$R['admin_code_notinstalled'] = '<span class="strong extension notinstalled">' . $L['adm_notinstalled'] . '</span>';
+$R['admin_code_partrunning'] = '<span class="strong extention partrunning">' . $L['adm_partrunning'] . '</span>';
+$R['admin_code_paused'] = '<span class="strong extension paused">' . $L['adm_paused'] . '</span>';
+$R['admin_code_present'] = '<span class="strong extension present">' . $L['adm_present'] . '</span>';
+$R['admin_code_running'] = '<span class="strong extension running">' . $L['adm_running'] . '</span>';
 
 // Icons
 
@@ -47,8 +46,8 @@ $R['admin_icon_join2'] = '<img class="icon" src="system/admin/img/join2.png" alt
 $R['admin_icon_blank'] = '<img class="icon" src="system/admin/img/blank.png" alt="" />';
 
 // Usergroups
-$R['admin_icon_usergroup0'] = '<img class="icon" src="system/admin/img/users-off.png" title="'.$L['Group0'].'" alt="'.$L['Group0'].'" />';
-$R['admin_icon_usergroup1'] = '<img class="icon" src="system/admin/img/users.png" title="'.$L['Group1'].'" alt="'.$L['Group1'].'" />';
+$R['admin_icon_usergroup0'] = '<img class="icon" src="system/admin/img/users-off.png" title="' . $L['Group0'] . '" alt="' . $L['Group0'] . '" />';
+$R['admin_icon_usergroup1'] = '<img class="icon" src="system/admin/img/users.png" title="' . $L['Group1'] . '" alt="' . $L['Group1'] . '" />';
 
 //Extrafields
 $R['admin_exflds_array'] = '{$tplfile}: {$tags}; ';
