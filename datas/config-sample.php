@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Configuration
  *
@@ -6,18 +7,17 @@
  * @copyright (c) Cotonti Team
  * @license https://github.com/Cotonti/Cotonti/blob/master/License.txt
  */
-
 defined('COT_CODE') or die('Wrong URL');
 
 // ========================
 // MySQL database parameters. Change to fit your host.
 // ========================
 
-$cfg['mysqlhost'] = 'localhost';	// Database host URL
-$cfg['mysqlport'] = '';				// Database port, if non-default
-$cfg['mysqluser'] = 'root';			// Database user
-$cfg['mysqlpassword'] = '';			// Database password
-$cfg['mysqldb'] = 'cotonti';		// Database name
+$cfg['mysqlhost'] = 'localhost'; // Database host URL
+$cfg['mysqlport'] = '';    // Database port, if non-default
+$cfg['mysqluser'] = 'root';   // Database user
+$cfg['mysqlpassword'] = '';   // Database password
+$cfg['mysqldb'] = 'cotonti';  // Database name
 // MySQL database charset and collate. Very useful when MySQL server uses different charset rather than site
 // See the list of valid values here: https://dev.mysql.com/doc/refman/8.0/en/charset-charsets.html
 $cfg['mysqlcharset'] = 'utf8';
@@ -30,36 +30,33 @@ $cfg['mysqlcollate'] = 'utf8_unicode_ci';
 $cfg['mainurl'] = 'http://localhost';
 $cfg['site_id'] = 'Some unique string specific to your site';
 $cfg['secret_key'] = 'Secret key used for authentication, make it unique and keep in secret!';
-$cfg['multihost'] = FALSE;			// Allow multiple host names for this site
-
+$cfg['multihost'] = FALSE;   // Allow multiple host names for this site
 // ========================
 // Default theme, color scheme and default language
 // ========================
 
-$cfg['defaulttheme'] = 'nemesis';	// Default theme code. Be SURE it's pointing to a valid folder in ./themes/... !!
-$cfg['defaultscheme'] = 'default';	// Default color scheme, only name, not like themename.css. Be SURE it's pointing to a valid folder in ./themes/defaulttheme/... !!
-$cfg['defaulticons'] = 'default';	// Default icon pack
-$cfg['defaultlang'] = 'en';			// Default language code
-$cfg['enablecustomhf'] = FALSE;		// To enable header.$location.tpl and footer.$location.tpl
-$cfg['admintheme'] = '';			// Put custom administration theme name here
-
+$cfg['defaulttheme'] = 'nemesis'; // Default theme code. Be SURE it's pointing to a valid folder in ./themes/... !!
+$cfg['defaultscheme'] = 'default'; // Default color scheme, only name, not like themename.css. Be SURE it's pointing to a valid folder in ./themes/defaulttheme/... !!
+$cfg['defaulticons'] = 'default'; // Default icon pack
+$cfg['defaultlang'] = 'en';   // Default language code
+$cfg['enablecustomhf'] = FALSE;  // To enable header.$location.tpl and footer.$location.tpl
+$cfg['admintheme'] = '';   // Put custom administration theme name here
 // ========================
 // Performance-related settings
 // ========================
 
-$cfg['cache'] = TRUE;			// Enable data caching
-$cfg['cache_drv'] = '';			// Cache driver name to use on your server (if available)
-								// Possible values: APC, Memcache, Xcache
+$cfg['cache'] = TRUE;   // Enable data caching
+$cfg['cache_drv'] = '';   // Cache driver name to use on your server (if available)
+// Possible values: APC, Memcache, Xcache
 $cfg['cache_drv_host'] = 'localhost';
 $cfg['cache_drv_port'] = null;
 
-$cfg['xtpl_cache'] = TRUE;		// Enable XTemplate structure disk cache. Should be TRUE on production sites
-$cfg['html_cleanup'] = FALSE;	// Wipe extra spaces and breaks from HTML to get smaller footprint
+$cfg['xtpl_cache'] = TRUE;  // Enable XTemplate structure disk cache. Should be TRUE on production sites
+$cfg['html_cleanup'] = FALSE; // Wipe extra spaces and breaks from HTML to get smaller footprint
 
 $cfg['cache_index'] = FALSE;    // Static page cache for guests on index
 $cfg['cache_page'] = FALSE;     // Static page cache for guests on pages and categories
 $cfg['cache_forums'] = FALSE;   // Static page cache for guests on forums
-
 // ========================
 // More settings
 // Should work fine in most of cases.
@@ -67,20 +64,19 @@ $cfg['cache_forums'] = FALSE;   // Static page cache for guests on forums
 // TRUE = enabled / FALSE = disabled
 // ========================
 
-$cfg['check_updates'] = FALSE;		// Automatically check for updates, set it TRUE to enable
+$cfg['check_updates'] = FALSE;  // Automatically check for updates, set it TRUE to enable
 
-$cfg['display_errors'] = TRUE;		// Display error messages. Switch it FALSE on production sites
+$cfg['display_errors'] = TRUE;  // Display error messages. Switch it FALSE on production sites
 
-$cfg['redirmode'] = FALSE;			// 0 or 1, Set to '1' if you cannot sucessfully log in (IIS servers)
-$cfg['xmlclient'] = FALSE;  		// For testing-purposes only, else keep it off.
-$cfg['ipcheck'] = FALSE;  			// Will kill the logged-in session if the IP has changed
-$cfg['authcache'] = TRUE;			// Auth cache in SQL tables. Set it FALSE if your huge database
-									// goes down because of that
-$cfg['customfuncs'] = FALSE;		// Includes file named functions.custom.php
-$cfg['new_install'] = 1;			// This setting denotes a new install step and redirects you to the install page
-									// If you already have Cotonti installed then set it to FALSE or remove it
+$cfg['redirmode'] = FALSE;   // 0 or 1, Set to '1' if you cannot sucessfully log in (IIS servers)
+$cfg['xmlclient'] = FALSE;    // For testing-purposes only, else keep it off.
+$cfg['ipcheck'] = FALSE;     // Will kill the logged-in session if the IP has changed
+$cfg['authcache'] = TRUE;   // Auth cache in SQL tables. Set it FALSE if your huge database
+// goes down because of that
+$cfg['customfuncs'] = FALSE;  // Includes file named functions.custom.php
+$cfg['new_install'] = 1;   // This setting denotes a new install step and redirects you to the install page
+// If you already have Cotonti installed then set it to FALSE or remove it
 $cfg['useremailduplicate'] = FALSE;     // Allow users to register new accounts with duplicate email. DO NOT ENABLE this setting unless you know for sure that you need it or it may make your database inconsistent.
-
 // ========================
 // Directory paths
 // Set it to custom if you want to share
@@ -143,7 +139,7 @@ $cfg['shield_force'] = FALSE;
 // Else do not change.
 // ========================
 
-$db_x				= 'cot_'; // Default: cot_, prefix for extra fields' table(s)
+$db_x = 'cot_'; // Default: cot_, prefix for extra fields' table(s)
 
 // Examples:
 // $db_auth			= 'my_custom_auth';
