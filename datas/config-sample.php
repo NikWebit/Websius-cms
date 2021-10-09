@@ -9,10 +9,6 @@
  */
 defined('COT_CODE') or die('Wrong URL');
 
-/* SSL parameters
-  --------------------------------------------------------------------------- */
-$cfg['ssl_port'] = '8443';
-
 /* MySQL database parameters.
  * Change to fit your host.
   --------------------------------------------------------------------------- */
@@ -41,6 +37,15 @@ $cfg['defaulticons'] = 'default'; // Default icon pack
 $cfg['defaultlang'] = 'en';   // Default language code
 $cfg['enablecustomhf'] = FALSE;  // To enable header.$location.tpl and footer.$location.tpl
 $cfg['admintheme'] = '';   // Put custom administration theme name here
+
+/* SSL parameters and First Cookie SameSite Policy
+  --------------------------------------------------------------------------- */
+$cfg['ssl_port'] = '8443';
+$cfg['cookie_samesite'] = 'Lax';   // Lax, Strict, None||'';
+$cfg['session_cookie_samesite'] = 'Lax';   // Lax, Strict, None||'';
+// See the list of valid values here:
+// https://php.net/function.setcookie.html
+// https://php.net/function.session-set-cookie-params.html
 
 /* Performance-related settings
   --------------------------------------------------------------------------- */
