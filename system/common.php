@@ -434,13 +434,18 @@ if ($cfg['maintenance'] && !defined('COT_INSTALL')) {
     }
 }
 
-/* ======== Anti-hammering ========= */
+/* Anti-hammering
+  --------------------------------------------------------------------------- */
 
 if ($cfg['shieldenabled'] &&
         ($usr['id'] == 0 || !cot_auth('admin', 'a', 'A') || $cfg['shield_force'])) {
-    $shield_limit = $_SESSION['online_shield'];
-    $shield_action = $_SESSION['online_action'];
-    $shield_hammer = cot_shield_hammer($_SESSION['online_hammer'], $shield_action, $_SESSION['online_lastseen']);
+    $shield_limit = isset($_SESSION['online_shield']);
+    $shield_action = $_SESSION['online_action'] ?? '';
+    $shield_hammer = cot_shield_hammer(
+            isset($_SESSION['online_hammer']),
+            $shield_action,
+            $_SESSION['online_lastseen']
+    );
     $sys['online_hammer'] = $shield_hammer;
     $_SESSION['online_lastseen'] = (int) $sys['now'];
 }
