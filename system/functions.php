@@ -1286,16 +1286,18 @@ function cot_structure_children($area, $cat, $allsublev = true, $firstcat = true
  * @return mixed
  */
 function cot_structure_parents($area, $cat, $type = 'full') {
-    global $structure;
-    $pathcodes = explode('.', $structure[$area][$cat]['path']);
 
-    if ($type == 'first') {
-        return $pathcodes[0];
-    } elseif ($type == 'last') {
-        return (count($pathcodes) > 1) ? $pathcodes[count($pathcodes) - 2] : null;
+    $sac_path = cot::$structure[$area][$cat]['path'] ?? null;
+    $ret = $paths = explode('.', $sac_path);
+
+    if (isset($paths[0]) && $type === 'first') {
+        $ret = $paths[0];
+    } elseif (is_countable($paths) && $type === 'last') {
+        $paths_count = count($paths);
+        $ret = ($paths_count > 1)?->$paths[$paths_count - 2];
     }
 
-    return $pathcodes;
+    return $ret;
 }
 
 /*
