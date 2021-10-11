@@ -2115,8 +2115,10 @@ function cot_generate_usertags($user_data, $tag_prefix = '', $emptyname = '', $a
         }
 
         if (is_array($user_data) && $user_data['user_id'] > 0 && !empty($user_data['user_name'])) {
-            $user_data['user_birthdate'] = cot_date2stamp($user_data['user_birthdate']);
-            $user_data['user_text'] = cot_parse($user_data['user_text'], $cfg['users']['usertextimg']);
+            $user_data['user_birthdate'] = isset($user_data['user_birthdate']) ?
+                    cot_date2stamp($user_data['user_birthdate']) : null;
+            $user_data['user_text'] = isset($user_data['user_text']) ?
+                    cot_parse($user_data['user_text'], $cfg['users']['usertextimg']) : '';
 
             $temp_array = array(
                 'ID' => $user_data['user_id'],
@@ -4607,7 +4609,9 @@ function cot_shield_hammer($hammer, $action, $lastseen) {
             $hammer--;
         }
     }
+
     $_SESSION['online_hammer'] = $hammer;
+
     return $hammer;
 }
 
