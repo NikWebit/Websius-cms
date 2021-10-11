@@ -434,22 +434,6 @@ if ($cfg['maintenance'] && !defined('COT_INSTALL')) {
     }
 }
 
-/* Anti-hammering
-  --------------------------------------------------------------------------- */
-
-if ($cfg['shieldenabled'] &&
-        ($usr['id'] == 0 || !cot_auth('admin', 'a', 'A') || $cfg['shield_force'])) {
-    $shield_limit = isset($_SESSION['online_shield']);
-    $shield_action = $_SESSION['online_action'] ?? '';
-    $shield_hammer = cot_shield_hammer(
-            isset($_SESSION['online_hammer']),
-            $shield_action,
-            $_SESSION['online_lastseen']
-    );
-    $sys['online_hammer'] = $shield_hammer;
-    $_SESSION['online_lastseen'] = (int) $sys['now'];
-}
-
 /* ======== Zone variables ======== */
 
 $m = cot_import('m', 'G', 'ALP', 24);
@@ -467,7 +451,6 @@ if (defined('COT_ADMIN')) {
 }
 
 /* ======== Theme / color scheme ======== */
-
 
 // Resource control object
 require_once $cfg['system_dir'] . '/resources.php';
@@ -503,6 +486,22 @@ require_once $cfg['system_dir'] . '/resources.rc.php';
 
 if (defined('COT_ADMIN')) {
     require_once cot_incfile('admin', 'module', 'resources');
+}
+
+/* Anti-hammering
+  --------------------------------------------------------------------------- */
+
+if ($cfg['shieldenabled'] &&
+        ($usr['id'] == 0 || !cot_auth('admin', 'a', 'A') || $cfg['shield_force'])) {
+    $shield_limit = $_SESSION['online_shield'] ?? (int) $sys['now'];
+    $shield_action = $_SESSION['online_action'] ?? '';
+    $shield_hammer = cot_shield_hammer(
+            (int) $_SESSION['online_hammer'] ?? 0,
+            $shield_action,
+            (int) $_SESSION['online_lastseen']
+    );
+    $sys['online_hammer'] = $shield_hammer;
+    $_SESSION['online_lastseen'] = (int) $sys['now'];
 }
 
 // Theme resources

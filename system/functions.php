@@ -4192,8 +4192,6 @@ function cot_rc($name, $params = array()) {
         $res = $name;
     }
 
-
-
     is_array($params) ? $args = $params : parse_str($params, $args);
     if (preg_match_all('#\{\$(\w+)\}#', $res, $matches, PREG_SET_ORDER)) {
         foreach ($matches as $m) {
@@ -4609,6 +4607,7 @@ function cot_shield_hammer($hammer, $action, $lastseen) {
             $hammer--;
         }
     }
+    $_SESSION['online_hammer'] = $hammer;
     return $hammer;
 }
 
@@ -4620,10 +4619,10 @@ function cot_shield_protect() {
     global $sys, $shield_limit, $shield_action, $L;
 
     if ($shield_limit > $sys['now']) {
-        cot_die_message(403, true, $L['shield_title'], cot_rc('shield_protect', array(
+        cot_die_message(403, true, $L['shield_title'], cot_rc('shield_protect', [
             'sec' => $shield_limit - $sys['now'],
             'action' => $shield_action
-        )));
+        ]));
     }
 }
 
