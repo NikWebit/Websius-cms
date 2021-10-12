@@ -2134,25 +2134,32 @@ function cot_generate_usertags($user_data, $tag_prefix = '', $emptyname = '', $a
                 'MAINGRPTITLE' => cot_build_group($user_data['user_maingrp'], true),
                 'MAINGRPSTARS' => cot_build_stars($cot_groups[$user_data['user_maingrp']]['level']),
                 'MAINGRPICON' => cot_build_groupicon($cot_groups[$user_data['user_maingrp']]['icon']),
-                'COUNTRY' => cot_build_country($user_data['user_country']),
-                'COUNTRYFLAG' => cot_build_flag($user_data['user_country']),
+                'COUNTRY' => isset($user_data['user_country']) ?
+                cot_build_country($user_data['user_country']) : '',
+                'COUNTRYFLAG' => isset($user_data['user_country']) ?
+                cot_build_flag($user_data['user_country']) : '',
                 'TEXT' => $user_data['user_text'],
-                'EMAIL' => cot_build_email($user_data['user_email'], $user_data['user_hideemail']),
-                'THEME' => $user_data['user_theme'],
-                'SCHEME' => $user_data['user_scheme'],
-                'LANG' => $user_data['user_lang'],
-                'GENDER' => ($user_data['user_gender'] == '' || $user_data['user_gender'] == 'U') ? '' : $L['Gender_' . $user_data['user_gender']],
+                'EMAIL' => isset($user_data['user_email']) ?
+                cot_build_email($user_data['user_email'], $user_data['user_hideemail'] ?? 1) : '',
+                'THEME' => $user_data['user_theme'] ?? '',
+                'SCHEME' => $user_data['user_scheme'] ?? '',
+                'LANG' => $user_data['user_lang'] ?? '',
+                'GENDER' => (($user_data['user_gender'] ?? '') === '' || $user_data['user_gender'] === 'U') ?
+                '' : $L['Gender_' . $user_data['user_gender']],
                 'BIRTHDATE' => (is_null($user_data['user_birthdate'])) ? '' : cot_date('date_full', $user_data['user_birthdate']),
                 'BIRTHDATE_STAMP' => (is_null($user_data['user_birthdate'])) ? '' : $user_data['user_birthdate'],
                 'AGE' => (is_null($user_data['user_birthdate'])) ? '' : cot_build_age($user_data['user_birthdate']),
-                'TIMEZONE' => cot_build_timezone(cot_timezone_offset($user_data['user_timezone'], false, false)) . ' ' . str_replace('_', ' ', $user_data['user_timezone']),
-                'REGDATE' => cot_date('datetime_medium', $user_data['user_regdate']),
-                'REGDATE_STAMP' => $user_data['user_regdate'],
-                'LASTLOG' => cot_date('datetime_medium', $user_data['user_lastlog']),
-                'LASTLOG_STAMP' => $user_data['user_lastlog'],
-                'LOGCOUNT' => $user_data['user_logcount'],
+                'TIMEZONE' => isset($user_data['user_timezone']) ?
+                cot_build_timezone(cot_timezone_offset($user_data['user_timezone'], false, false)) . ' ' . str_replace('_', ' ', $user_data['user_timezone']) : '',
+                'REGDATE' => isset($user_data['user_regdate']) ?
+                cot_date('datetime_medium', $user_data['user_regdate']) : '',
+                'REGDATE_STAMP' => $user_data['user_regdate'] ?? '',
+                'LASTLOG' => isset($user_data['user_lastlog']) ?
+                cot_date('datetime_medium', $user_data['user_lastlog']) : '',
+                'LASTLOG_STAMP' => $user_data['user_lastlog'] ?? '',
+                'LOGCOUNT' => $user_data['user_logcount'] ?? '',
                 'POSTCOUNT' => !empty($user_data['user_postcount']) ? $user_data['user_postcount'] : 0,
-                'LASTIP' => $user_data['user_lastip']
+                'LASTIP' => $user_data['user_lastip'] ?? null
             );
 
             if ($allgroups) {
