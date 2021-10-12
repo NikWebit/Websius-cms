@@ -495,8 +495,17 @@ if ($cfg['shieldenabled'] &&
         ($usr['id'] == 0 || !cot_auth('admin', 'a', 'A') || $cfg['shield_force'])) {
     $shield_limit = $_SESSION['online_shield'] ?? (int) $sys['now'];
     $shield_action = $_SESSION['online_action'] ?? '';
+
+    if (($_SESSION['online_hammer'] ?? '') === '') {
+        $_SESSION['online_hammer'] = 0;
+    }
+
+    if (($_SESSION['online_lastseen'] ?? '') === '') {
+        $_SESSION['online_lastseen'] = (int) $sys['now'];
+    }
+
     $shield_hammer = cot_shield_hammer(
-            (int) $_SESSION['online_hammer'] ?? 0,
+            (int) $_SESSION['online_hammer'],
             $shield_action,
             (int) $_SESSION['online_lastseen']
     );
