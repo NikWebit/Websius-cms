@@ -1294,7 +1294,7 @@ function cot_structure_parents($area, $cat, $type = 'full') {
         $ret = $paths[0];
     } elseif (is_countable($paths) && $type === 'last') {
         $paths_count = count($paths);
-        $ret = ($paths_count > 1)?->$paths[$paths_count - 2];
+        $ret = (1 < $paths_count) ? $paths[$paths_count - 2] : null;
     }
 
     return $ret;
