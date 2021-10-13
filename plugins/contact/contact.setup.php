@@ -1,4 +1,5 @@
 <?php
+
 /* ====================
 [BEGIN_COT_EXT]
 Code=contact
@@ -6,7 +7,7 @@ Name=Contact
 Category=forms-feedback
 Description=Contact form for user feedback delivered by e-mail and recorded in database
 Version=2.7.2
-Date=2021-08-30
+Date=2021-10-12
 Author=Cotonti Team
 Copyright=&copy; Cotonti Team 2008-2021
 Notes=
@@ -23,6 +24,7 @@ map=12:text:::Map
 about=13:text:::About
 save=14:select:email,db,both:both:Save Method
 template=15:textarea:::Email template
+noindex=90:radio::1:Exclude from search engine index
 [END_COT_EXT_CONFIG]
 ==================== */
 
