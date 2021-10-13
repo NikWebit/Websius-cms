@@ -161,7 +161,7 @@ if ($rc != '') {
     }
     $out['head'] .= cot_rc('msg_code_redir_head', array('delay' => 2, 'url' => $r["$rc"]));
     $body .= $R['code_error_separator'] . $L['msgredir'];
-} elseif ($rd != '') {
+} elseif (($rd ?? '') !== '') {
     if (mb_strpos($ru, '://') === false) {
         $ru = COT_ABSOLUTE_URL . ltrim($ru, '/');
     }
