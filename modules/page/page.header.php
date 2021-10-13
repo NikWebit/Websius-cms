@@ -32,7 +32,7 @@ elseif ($usr['id'] > 0 && cot_auth('page', 'any', 'W'))
 
 	if ($sys['pagesqueued'] > 0)
 	{
-		$out['notices_array'][] = array(cot_url('page', 'c=unvalidated'), cot_declension($sys['pagesqueued'], $Ls['unvalidated_pages']));
+		$out['notices_array'][] = array(cot_url('page', 'c=unvalidated'), cot_declension($sys['pagesqueued'], ($Ls['unvalidated_pages'] ?? 'unvalidated')));
 	}
 }
 
@@ -43,7 +43,7 @@ if ($usr['id'] > 0 && cot_auth('page', 'any', 'A'))
 
 	if ($sys['pagesindrafts'] > 0)
 	{
-		$out['notices_array'][] = array(cot_url('admin', 'm=page&filter=drafts'), cot_declension($sys['pagesindrafts'], $Ls['pages_in_drafts']));
+		$out['notices_array'][] = array(cot_url('admin', 'm=page&filter=drafts'), cot_declension($sys['pagesindrafts'], ($Ls['pages_in_drafts'] ?? 'in drafts')));
 	}
 }
 elseif ($usr['id'] > 0 && cot_auth('page', 'any', 'W'))
@@ -53,6 +53,6 @@ elseif ($usr['id'] > 0 && cot_auth('page', 'any', 'W'))
 
 	if ($sys['pagesindrafts'] > 0)
 	{
-		$out['notices_array'][] = array(cot_url('page', 'c=saved_drafts'), cot_declension($sys['pagesindrafts'], $Ls['pages_in_drafts']));
+		$out['notices_array'][] = array(cot_url('page', 'c=saved_drafts'), cot_declension($sys['pagesindrafts'], ($Ls['pages_in_drafts'] ?? 'in drafts')));
 	}
 }
