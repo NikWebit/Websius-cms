@@ -14,9 +14,10 @@ foreach (cot_getextplugins('footer.first') as $pl) {
 /* ===== */
 
 if (!COT_AJAX) {
+
     $mtpl_type = defined('COT_ADMIN') || defined('COT_MESSAGE') && $_SESSION['s_run_admin'] && cot_auth('admin', 'any', 'R') ? 'core' : 'module';
     if (cot::$cfg['enablecustomhf']) {
-        $mtpl_base = (defined('COT_PLUG') && !empty($e)) ? array('footer', $e) : array('footer', cot::$env['location']);
+        $mtpl_base = (defined('COT_PLUG') && !empty(cot::$env['ext'])) ? ['footer', cot::$env['ext']] : ['footer', cot::$env['location']];
     } else {
         $mtpl_base = 'footer';
     }

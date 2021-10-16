@@ -3235,6 +3235,7 @@ function cot_tplfile($base, $type = 'module', $admin = null) {
         $admin && !empty($cfg['admintheme']) && $scan_dirs[] = "{$cfg['themes_dir']}/admin/{$cfg['admintheme']}/plugins/";
         $admin && $scan_dirs[] = "{$cfg['themes_dir']}/{$usr['theme']}/admin/plugins/";
         if (isset(cot::$usr['theme'])) {
+            $scan_dirs[] = "{$cfg['themes_dir']}/{$usr['theme']}/";
             $scan_dirs[] = cot::$cfg['themes_dir'] . "/{$usr['theme']}/plugins/";
             $scan_dirs[] = cot::$cfg['themes_dir'] . "/{$usr['theme']}/plugins/{$base[0]}/";
         }

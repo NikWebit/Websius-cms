@@ -70,7 +70,7 @@ if (!headers_sent()) {
 if (!COT_AJAX) {
     $mtpl_type = defined('COT_ADMIN') || defined('COT_MESSAGE') && $_SESSION['s_run_admin'] && cot_auth('admin', 'any', 'R') ? 'core' : 'module';
     if (cot::$cfg['enablecustomhf']) {
-        $mtpl_base = (defined('COT_PLUG') && !empty($e)) ? array('header', $e) : array('header', cot::$env['location']);
+        $mtpl_base = (defined('COT_PLUG') && !empty(cot::$env['ext'])) ? ['header', cot::$env['ext']] : ['header', cot::$env['location']];
     } else {
         $mtpl_base = 'header';
     }
