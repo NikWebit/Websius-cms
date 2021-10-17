@@ -8,7 +8,6 @@
 defined('COT_CODE') or die('Wrong URL');
 
 /* ======== First... ======== */
-
 if (version_compare(PHP_VERSION, '6.0.0', '<=')) {
     if (get_magic_quotes_gpc()) {
 
