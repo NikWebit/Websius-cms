@@ -54,7 +54,7 @@ $cfg['cache_drv'] = '';   // Cache driver name to use on your server (if availab
 $cfg['cache_drv_host'] = 'localhost';
 $cfg['cache_drv_port'] = null;
 
-$cfg['xtpl_cache'] = true;  // Enable XTemplate structure disk cache. Should be TRUE on production sites
+$cfg['xtpl_cache'] = true;  // Enable XTemplate structure disk cache. Should be true on production sites
 $cfg['html_cleanup'] = false; // Wipe extra spaces and breaks from HTML to get smaller footprint
 
 $cfg['cache_index'] = false;    // Static page cache for guests on index
@@ -63,16 +63,16 @@ $cfg['cache_forums'] = false;   // Static page cache for guests on forums
 
 /* More settings should work fine in most of cases.
  * If you don't know, don't change.
- * TRUE = enabled / false = disabled
+ * true = enabled / false = disabled
   --------------------------------------------------------------------------- */
-$cfg['check_updates'] = false;  // Automatically check for updates, set it TRUE to enable
+$cfg['check_updates'] = false;  // Automatically check for updates, set it true to enable
 
-$cfg['display_errors'] = TRUE;  // Display error messages. Switch it false on production sites
+$cfg['display_errors'] = true;  // Display error messages. Switch it false on production sites
 
 $cfg['redirmode'] = false;   // 0 or 1, Set to '1' if you cannot sucessfully log in (IIS servers)
 $cfg['xmlclient'] = false;    // For testing-purposes only, else keep it off.
 $cfg['ipcheck'] = false;     // Will kill the logged-in session if the IP has changed
-$cfg['authcache'] = TRUE;   // Auth cache in SQL tables. Set it false if your huge database
+$cfg['authcache'] = true;   // Auth cache in SQL tables. Set it false if your huge database
 // goes down because of that
 $cfg['customfuncs'] = false;  // Includes file named functions.custom.php
 $cfg['new_install'] = 1;   // This setting denotes a new install step and redirects you to the install page
@@ -106,7 +106,7 @@ $cfg['file_perms'] = 0664;
 
 /* Important constant switches
  * Defines whether to display debugging information on critical errors.
- * Set it TRUE when you experiment with something new.
+ * Set it true when you experiment with something new.
  * Set it false on production sites.
   --------------------------------------------------------------------------- */
 $cfg['debug_mode'] = false;
@@ -119,7 +119,7 @@ $cfg['debug_mode'] = false;
 $cfg['debug_logpath'] = 'datas/tmp';
 
 /* The shield is disabled for administrators by default. But if you are testing
- * it with your admin account, you can enable it by setting this TRUE.
+ * it with your admin account, you can enable it by setting this true.
   --------------------------------------------------------------------------- */
 $cfg['shield_force'] = false;
 
