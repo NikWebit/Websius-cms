@@ -7,7 +7,7 @@
  * @copyright (c) Cotonti Team
  * @license https://github.com/Cotonti/Cotonti/blob/master/License.txt
  */
-if (php_sapi_name() == 'cli-server') {
+if (PHP_SAPI === 'cli-server') {
     // Embedded PHP webserver routing
     $tmp = explode('?', $_SERVER['REQUEST_URI']);
     $REQUEST_FILENAME = mb_substr($tmp[0], 1);
