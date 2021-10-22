@@ -30,7 +30,7 @@ foreach (cot_getextplugins('admin.infos.first') as $pl) {
 $t->assign(array(
     'ADMIN_INFOS_PHPVER' => (function_exists('phpversion')) ? phpversion() : cot::$L['adm_help_config'],
     'ADMIN_INFOS_ZENDVER' => (function_exists('zend_version')) ? zend_version() : cot::$L['adm_help_config'],
-    'ADMIN_INFOS_INTERFACE' => (function_exists('php_sapi_name')) ? php_sapi_name() : cot::$L['adm_help_config'],
+    'ADMIN_INFOS_INTERFACE' => (defined('PHP_SAPI')) ? PHP_SAPI : cot::$L['adm_help_config'],
     'ADMIN_INFOS_CACHEDRIVERS' => (isset($cot_cache_drivers) && is_array($cot_cache_drivers)) ? implode(', ', $cot_cache_drivers) : '',
     'ADMIN_INFOS_OS' => (function_exists('php_uname')) ? php_uname() : $L['adm_help_config'],
     'ADMIN_INFOS_DATE' => cot_date('datetime_medium', cot::$sys['now'], false),
