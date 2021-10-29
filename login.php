@@ -234,9 +234,10 @@ foreach (cot_getextplugins('users.auth.main') as $pl) {
 
 $out['subtitle'] = cot::$L['aut_logintitle'];
 $out['head'] .= cot::$R['code_noindex'];
+
 require_once cot::$cfg['system_dir'] . '/header.php';
-$mskin = file_exists(cot_tplfile('login', 'core')) ? cot_tplfile('login', 'core') : cot_tplfile('users.auth', 'module');
-$t = new XTemplate($mskin);
+
+$t = new XTemplate(cot_tplfile('login', 'module'));
 
 require_once cot_incfile('forms');
 
@@ -248,7 +249,7 @@ if ($cfg['maintenance']) {
 $t->assign(array(
     'USERS_AUTH_TITLE' => cot::$L['aut_logintitle'],
     'USERS_AUTH_SEND' => cot_url('login', 'a=check' . (empty($redirect) ? '' : "&redirect=$redirect")),
-    'USERS_AUTH_USER' => cot_inputbox('text', 'rusername', $rusername, array('size' => '12', 'maxlength' => '100')),
+    'USERS_AUTH_USER' => cot_inputbox('text', 'rusername', ($rusername ?? ''), array('size' => '12', 'maxlength' => '100')),
     'USERS_AUTH_PASSWORD' => cot_inputbox('password', 'rpassword', '', array('size' => '12', 'maxlength' => '32')),
     'USERS_AUTH_REGISTER' => cot_url('users', 'm=register'),
     'USERS_AUTH_REMEMBER' => cot::$cfg['forcerememberme'] ? cot::$R['form_guest_remember_forced'] : cot::$R['form_guest_remember']
