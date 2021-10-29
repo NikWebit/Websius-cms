@@ -1,12 +1,15 @@
 <?php
 
-/**
- * Configuration
- *
- * @package Cotonti
- * @copyright (c) Cotonti Team
- * @license https://github.com/Cotonti/Cotonti/blob/master/License.txt
- */
+/** Этот файл является частью Cotont CMS ---------------------------------------
+
+  @license BSD 3-Clause
+  @copyright © NikWebit, 2021
+  @link https://cotont.ru Веб-сайт Cotont CMS
+
+  Для получения полной информации об авторских правах и условиях использования,
+  смотрите файл лицензии LICENCE, который является неотъемлемой частью сборки,
+  и обязательно должен присутствовать в легальном дистрибутиве Cotont CMS.
+  --------------------------------------------------------------------------- */
 defined('COT_CODE') or die('Wrong URL');
 
 /* MySQL database parameters.
@@ -83,20 +86,21 @@ $cfg['useremailduplicate'] = false;     // Allow users to register new accounts 
  * Set it to custom if you want to share folders among different hosts.
   --------------------------------------------------------------------------- */
 $cfg['app_dir'] = 'app';
-$cfg['system_dir'] = 'system';
+$cfg['datas_dir'] = 'datas';
+$cfg['themes_dir'] = 'themes';
 $cfg['modules_dir'] = 'modules';
 $cfg['plugins_dir'] = 'plugins';
 
-$cfg['lang_dir'] = 'lang';
-$cfg['themes_dir'] = 'themes';
-$cfg['icons_dir'] = 'images/icons';
+$cfg['icons_dir'] = 'ui/img/icons';
+$cfg['system_dir'] = $cfg['app_dir'] . '/inc';
+$cfg['lang_dir'] = $cfg['app_dir'] . '/lang';
 
-$cfg['pfs_dir'] = 'datas/users';
-$cfg['cache_dir'] = 'datas/cache';
-$cfg['photos_dir'] = 'datas/photos';
-$cfg['thumbs_dir'] = 'datas/thumbs';
-$cfg['avatars_dir'] = 'datas/avatars';
-$cfg['extrafield_files_dir'] = 'datas/exflds';
+$cfg['pfs_dir'] = $cfg['datas_dir'] . '/users';
+$cfg['cache_dir'] = $cfg['datas_dir'] . '/cache';
+$cfg['photos_dir'] = $cfg['datas_dir'] . '/photos';
+$cfg['thumbs_dir'] = $cfg['datas_dir'] . '/thumbs';
+$cfg['avatars_dir'] = $cfg['datas_dir'] . '/avatars';
+$cfg['extrafield_files_dir'] = $cfg['datas_dir'] . '/exflds';
 
 /* Directory and file permissions for uploaded and created with scripts files.
  * Set it to values which deliver highest security and comfort on your host.
