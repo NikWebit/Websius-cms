@@ -1,6 +1,8 @@
 <?php
 
 /**
+ *  Конфигурация
+ * 
  * @license BSD 3-Clause
  * @copyright © NikWebit, 2021
  * @link https://cotont.ru Веб-сайт Cotont CMS
