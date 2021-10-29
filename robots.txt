@@ -1,0 +1,8 @@
+User-agent: *
+Disallow: /datas
+Disallow: /app
+Disallow: /themes
+
+# Если плагин SiteMap установлен, измените доменное имя на нужное, и раскомментируйте строку ниже:
+# Sitemap: https://cotont.ru/sitemap.xml
+
