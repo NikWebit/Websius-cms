@@ -1,14 +1,12 @@
 <?php
 
-/** Этот файл является частью Cotont CMS ---------------------------------------
-
-  @license BSD 3-Clause
-  @copyright © NikWebit, 2021
-  @link https://cotont.ru Веб-сайт Cotont CMS
-
-  Для получения полной информации об авторских правах и условиях использования,
-  смотрите файл лицензии LICENCE, который является неотъемлемой частью сборки,
-  и обязательно должен присутствовать в легальном дистрибутиве Cotont CMS.
+/**
+ * @license BSD 3-Clause
+ * @copyright © NikWebit, 2021
+ * @link https://cotont.ru Веб-сайт Cotont CMS
+ *
+ * Этот файл является частью Cotont CMS. Смотрите LICENCE (идет с дистрибутивом)
+ * для получения полной информации об авторских правах и условиях использования.
   --------------------------------------------------------------------------- */
 defined('COT_CODE') or die('Wrong URL');
 
@@ -93,8 +91,8 @@ $cfg['plugins_dir'] = 'plugins';
 
 $cfg['lang_dir'] = $cfg['app_dir'] . '/lang';
 $cfg['system_dir'] = $cfg['app_dir'] . '/inc';
-$cfg['themes_dir'] = $cfg['ui_dir'].'/themes';
-$cfg['icons_dir'] = $cfg['ui_dir'].'/img/icons';
+$cfg['themes_dir'] = $cfg['ui_dir'] . '/themes';
+$cfg['icons_dir'] = $cfg['ui_dir'] . '/img/icons';
 
 $cfg['pfs_dir'] = $cfg['datas_dir'] . '/users';
 $cfg['cache_dir'] = $cfg['datas_dir'] . '/cache';
