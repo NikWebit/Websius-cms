@@ -14,8 +14,9 @@ define('COT_CORE', TRUE);
 require_once './datas/config.php';
 require_once $cfg['system_dir'] . '/functions.php';
 
-$env['location'] = 'administration';
 $env['ext'] = 'admin';
+$env['type'] = 'core';
+$env['location'] = 'administration';
 
 require_once $cfg['system_dir'] . '/cotemplate.php';
 require_once $cfg['system_dir'] . '/common.php';
