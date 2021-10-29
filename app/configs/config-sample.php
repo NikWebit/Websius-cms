@@ -85,15 +85,16 @@ $cfg['useremailduplicate'] = false;     // Allow users to register new accounts 
 /* Directory paths.
  * Set it to custom if you want to share folders among different hosts.
   --------------------------------------------------------------------------- */
+$cfg['ui_dir'] = 'ui';
 $cfg['app_dir'] = 'app';
 $cfg['datas_dir'] = 'datas';
-$cfg['themes_dir'] = 'themes';
 $cfg['modules_dir'] = 'modules';
 $cfg['plugins_dir'] = 'plugins';
 
-$cfg['icons_dir'] = 'ui/img/icons';
-$cfg['system_dir'] = $cfg['app_dir'] . '/inc';
 $cfg['lang_dir'] = $cfg['app_dir'] . '/lang';
+$cfg['system_dir'] = $cfg['app_dir'] . '/inc';
+$cfg['themes_dir'] = $cfg['ui_dir'].'/themes';
+$cfg['icons_dir'] = $cfg['ui_dir'].'/img/icons';
 
 $cfg['pfs_dir'] = $cfg['datas_dir'] . '/users';
 $cfg['cache_dir'] = $cfg['datas_dir'] . '/cache';
