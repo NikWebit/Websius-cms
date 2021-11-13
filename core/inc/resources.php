@@ -645,10 +645,12 @@ class Resources {
      */
     public static function minify($code, $type = 'js') {
         if ($type == 'js') {
-            require_once './lib/JShrink/src/Minifier.php';
+
+            require_once Path::libFile('JShrink');
             $code = \JShrink\Minifier::minify($code);
         } elseif ($type == 'css') {
-            require_once './lib/cssmin.php';
+
+            require_once Path::libFile('CssMin');
             $code = minify_css($code);
         }
         return $code;
