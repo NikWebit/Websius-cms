@@ -3,18 +3,15 @@
 /**
  * Вывод Админпанели.
  *
- * @copyright © NikWebit, 2021
- * @link https://cotont.ru Веб-сайт Cotont CMS
- * @license BSD 3-Clause https://github.com/NikWebit/Cotont/blob/master/LICENCE
- *
- * Этот файл — часть Cotont CMS. Смотрите LICENCE (также идет с дистрибутивом),
- * для получения полной информации об авторских правах и условиях использования.
-  --------------------------------------------------------------------------- */
+ * @author NikWebit <https://cotont.ru/contact>
+ * @copyright (c) Cotont CMS <https://cotont.ru>
+ * @license https://github.com/NikWebit/Cotont/blob/master/LICENCE BSD-3-Clause
+ */
 define('COT_CODE', TRUE);
 define('COT_ADMIN', TRUE);
 define('COT_CORE', TRUE);
 
-require_once './datas/config.php';
+require_once './datas/configs/config.php';
 require_once $cfg['system_dir'] . '/functions.php';
 
 $env['ext'] = 'admin';
