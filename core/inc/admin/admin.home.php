@@ -11,7 +11,7 @@
 
 $t = new XTemplate(cot_tplfile('admin.home', 'core'));
 
-if (!$cfg['debug_mode'] && file_exists('install.php') && is_writable('datas/config.php')) {
+if (!$cfg['debug_mode'] && file_exists('install.php') && is_writable('datas/configs/config.php')) {
     cot_error('home_installable_error');
 }
 
