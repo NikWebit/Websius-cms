@@ -3,24 +3,22 @@
 /**
  * Установочный скрипт.
  *
- * @copyright © NikWebit, 2021
- * @link https://cotont.ru Веб-сайт Cotont CMS
- * @license BSD 3-Clause https://github.com/NikWebit/Cotont/blob/master/LICENCE
+ * @package API - Install
  *
- * Этот файл — часть Cotont CMS. Смотрите LICENCE (также идет с дистрибутивом),
- * для получения полной информации об авторских правах и условиях использования.
-  --------------------------------------------------------------------------- */
-// Environment setup
+ * @author NikWebit <https://cotont.ru/contact>
+ * @copyright (c) Cotont CMS <https://cotont.ru>
+ * @license https://github.com/NikWebit/Cotont/blob/master/LICENCE BSD-3-Clause
+ */
 define('COT_CODE', TRUE);
 define('COT_INSTALL', TRUE);
 //define('COT_ADMIN', TRUE);
 $env['location'] = 'install';
 $env['ext'] = 'install';
 
-if (file_exists('./datas/config.php')) {
-    require_once './datas/config.php';
+if (file_exists('./datas/configs/config.php')) {
+    require_once './datas/configs/config.php';
 } else {
-    require_once './datas/config-sample.php';
+    require_once './datas/configs/prototype/proto__config.php';
 }
 
 if (empty($cfg['modules_dir'])) {
@@ -118,8 +116,8 @@ require_once cot_incfile('install', 'module', 'resources');
 $theme = $cfg['defaulttheme'];
 $scheme = $cfg['defaultscheme'];
 $out['meta_lastmod'] = gmdate('D, d M Y H:i:s');
-$file['config'] = './datas/config.php';
-$file['config_sample'] = './datas/config-sample.php';
+$file['config'] = './datas/configs/config.php';
+$file['config_sample'] = './datas/configs/prototype/proto__config.php';
 $file['sql'] = './setup/install.sql';
 
 if (!$cfg['new_install']) {
