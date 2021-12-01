@@ -60,7 +60,7 @@
 
 ## Установка
 
-1. Скопируйте /datas/configs/proto__config.php в /datas/configs/config.php и установите права на запись
+1. Скопируйте /datas/configs/prototype/proto__config.php в /datas/configs/config.php и установите права на запись
  CHMOD 666 или CHMOD 664 (зависит от конфигурации вашего хостинга).
 
 2. Также выставьте права на запись для папок CHMOD 777 или CHMOD 775:
